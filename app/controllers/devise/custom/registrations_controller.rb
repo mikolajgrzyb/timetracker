@@ -11,7 +11,7 @@ class Devise::Custom::RegistrationsController < Devise::RegistrationsController
       sign_up(:user, @registration.user)
     end
 
-    respond_with @registration, location: root_url
+    respond_with @registration, location: accounts_url
   end
 
   private

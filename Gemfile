@@ -32,6 +32,8 @@ gem 'pg'
 
 gem 'slim'
 
+gem 'carrierwave'
+
 group :production, :staging do
   gem 'rails_12factor'
 end

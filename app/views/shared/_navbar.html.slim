@@ -1,5 +1,6 @@
 ul.nav.navbar-nav.navbar-right.main-nav
   -if user_signed_in?
+    = image_tag current_user.avatar.url, alt: 'avatar', class: "image-rounded"
     li= link_to 'Timer', accounts_path
     li= link_to 'Projects', root_path
     li= link_to 'Team', root_path
@@ -17,7 +18,7 @@ ul.nav.navbar-nav.navbar-right.main-nav
         span.caret
       ul.dropdown-menu aria-labelledby="dropdownMenu2" role="menu"
         li role="presentation"
-          = link_to 'My profile', edit_user_registration_path(current_user), role: 'menuitem', tabindex: -1
+          = link_to 'My profile', edit_user_path(current_user), role: 'menuitem', tabindex: -1
         li role="presentation"
           = link_to 'Account 1', root_path, role: 'menuitem', tabindex: -1
         li role="presentation"
