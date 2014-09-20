@@ -8,7 +8,7 @@ describe Registration, type: :model do
       let(:registration) { create_registration }
 
       it "is valid" do
-        expect(registration.to be_valid)
+        expect(registration).to be_valid
       end
 
       it "creates user" do
@@ -75,6 +75,7 @@ describe Registration, type: :model do
         registration1 = create_registration
         registration1.register
 
+        expect(registration.errors.messages[:password_confirmation]).not_to be_nil
         registration2 = create_static_registration
         registration2.email = registration1.email
         registration2.register
