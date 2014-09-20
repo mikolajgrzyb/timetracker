@@ -6,7 +6,7 @@ class Registration
       :email,
       :first_name,
       :last_name,
-      :terms_of_service,
+      :tos_accepted,
       :password
   )
 
@@ -14,11 +14,12 @@ class Registration
   validates :email, presence: true, email: true
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :terms_of_service, acceptance: true
+  validates :tos_accepted, acceptance: true
 
   def register
     if valid?
       create_user
+      # sign_in user
     end
   end
 
@@ -30,7 +31,7 @@ class Registration
         email: email,
         first_name: first_name,
         last_name: last_name,
-        terms_of_service: terms_of_service,
+        tos_accepted: tos_accepted,
         password: password
     }
   end

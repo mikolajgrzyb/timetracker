@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users,
+             :controllers => { :registrations => "devise/custom/registrations" }
 
   root to: 'time_tracker#index'
 
