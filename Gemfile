@@ -32,8 +32,6 @@ gem 'pg'
 
 gem 'slim'
 
-gem 'faker', require: false
-
 group :production, :staging do
   gem 'rails_12factor'
 end
@@ -44,6 +42,7 @@ gem 'devise'
 
 group :development do
   gem 'better_errors'
+  gem 'quiet_assets'
 end
 
 group :development, :test do

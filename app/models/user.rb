@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_one :account
+  has_one :account, foreign_key: 'owner_id'
   has_many :account_members
   has_many :memberships, through: :account_members, class_name: 'Account'
 end
