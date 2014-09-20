@@ -1,13 +1,19 @@
 Rails.application.routes.draw do
+
   devise_for :users,
              :controllers => { :registrations => "devise/custom/registrations" }
 
+  get 'accounts/show'
+
   root to: 'time_tracker#index'
+
+  resources :accounts, only: [:index]
+  post 'invite', to: 'accounts#invite'
 
   devise_scope :user do
     get "signup", to: "devise/registrations#new"
   end
-  
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
