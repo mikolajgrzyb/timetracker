@@ -29,6 +29,8 @@ gem 'spring',        group: :development
 
 gem 'bootstrap-sass'
 
+gem 'pg'
+
 gem 'slim'
 
 gem 'faker', require: false
