@@ -27,15 +27,61 @@ describe Registration, type: :model do
 
     context "with invalid params" do
 
-      # let(:registration) { create_registration }
+      let(:registration) { create_registration }
 
       it "is not valid without first name" do
-        registration = Registration.new({})
+        registration.first_name = nil
         registration.valid?
-        # expect(registration.errors.messages[:first_name]).not_to be_nil
-        expect(registration).not_to be_valid
+        expect(registration.errors.messages[:first_name]).not_to be_nil
       end
 
+      it "is not valid without last_name" do
+        registration.last_name = nil
+        registration.valid?
+        expect(registration.errors.messages[:last_name]).not_to be_nil
+      end
+
+      it "is not valid without company_name" do
+        registration.company_name = nil
+        registration.valid?
+        expect(registration.errors.messages[:company_name]).not_to be_nil
+      end
+
+      it "is not valid without email" do
+        registration.email = nil
+        registration.valid?
+        expect(registration.errors.messages[:email]).not_to be_nil
+      end
+
+      it "is not valid without tos_accepted" do
+        registration.tos_accepted = nil
+        registration.valid?
+        expect(registration.errors.messages[:tos_accepted]).not_to be_nil
+      end
+
+      it "is not valid without password" do
+        registration.tos_accepted = nil
+        registration.valid?
+        expect(registration.errors.messages[:password]).not_to be_nil
+      end
+
+      it "is not valid if password is not confirmed" do
+        registration.password_confirmation = 'password123'
+        registration.valid?
+        expect(registration.errors.messages[:password_confirmation]).not_to be_nil
+      end
+
+      it "is not valid if email is not unique" do
+        registration1 = create_registration
+        registration1.register
+
+        registration2 = create_static_registration
+        registration2.email = registration1.email
+        registration2.register
+
+        expect(registration.errors.messages[:email]).not_to be_nil
+
+      end
 
 
       it "doesn't create user" do
