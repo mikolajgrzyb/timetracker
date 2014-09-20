@@ -32,14 +32,14 @@ gem 'pg'
 
 gem 'slim'
 
-gem 'faker', require: false
-
 group :production, :staging do
   gem 'rails_12factor'
 end
 
 # Authentication
 gem 'devise'
+
+gem 'email_validator'
 
 
 group :development do

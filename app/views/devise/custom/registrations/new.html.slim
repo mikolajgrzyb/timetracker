@@ -1,5 +1,7 @@
 h2
   | Sign up
+  = render partial: 'shared/errors', locals: {object: @registration}
+
   = form_for @registration, url: user_registration_path do |f|
     .input-group
       = f.label :first_name
@@ -12,10 +14,13 @@ h2
       = f.text_field :company_name, class: 'form-control'
     .input-group
       = f.label :email
-      = f.text_field :email, class: 'form-control'
+      = f.email_field :email, class: 'form-control'
     .input-group
       = f.label :password
       = f.password_field :password, class: 'form-control'
+    .input-group
+      = f.label :password_confirmation
+      = f.password_field :password_confirmation, class: 'form-control'
     .input-group
       = f.label :tos_accepted
       = f.check_box :tos_accepted, class: 'form-control'
