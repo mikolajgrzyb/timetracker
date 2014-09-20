@@ -1,0 +1,10 @@
+h2 Settings
+= @user.name
+= form_for @user do |f|
+  .form-group
+    = f.label :name
+    = f.text_field :name, class: 'form-control'
+  .form-group
+    = f.label :avatar
+    = f.file_field :avatar
+  = f.submit 'Save', class: 'btn btn-primary'
