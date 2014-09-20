@@ -15,7 +15,7 @@ class Registration
   )
 
   validates :company_name, presence: true, unless: -> {self.token}
-  validates :email, presence: true
+  validates :email, presence: true, email: true
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :tos_accepted, acceptance: true
