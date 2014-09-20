@@ -35,7 +35,7 @@ class Registration
   private
 
   def uniq_email
-    errors.add(:base, 'Email must be uniq') if User.exists?(email: email)
+    errors.add(:email, 'Email must be uniq') if User.exists?(email: email)
 
   end
 
