@@ -6,7 +6,10 @@ class Devise::Custom::RegistrationsController < Devise::RegistrationsController
 
   def create
     @registration = Registration.new(registration_params)
-    @registration.register
+
+    if @registration.register
+      sign_up(:user, @registration.user)
+    end
 
     respond_with @registration, location: root_url
   end

@@ -16,9 +16,21 @@ h2
     br
     = f.password_field :password, autocomplete: "off"
   div
-    = f.label :password_confirmation
+    = f.label :first_name
     br
-    = f.password_field :password_confirmation, autocomplete: "off"
+    = f.text_field :first_name
+  div
+    = f.label :last_name
+    br
+    = f.text_field :last_name
+  div
+    = f.label :company_name
+    br
+    = f.text_field :company_name
+  div
+    = f.label :tos_accepted
+    br
+    = f.check_box :tos_accepted
   div
     = f.submit "Sign up"
 = render "devise/shared/links"

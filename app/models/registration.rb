@@ -7,11 +7,12 @@ class Registration
       :first_name,
       :last_name,
       :tos_accepted,
-      :password
+      :password,
+      :user
   )
 
   validates :company_name, presence: true
-  validates :email, presence: true, email: true
+  validates :email, presence: true
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :tos_accepted, acceptance: true
@@ -19,7 +20,6 @@ class Registration
   def register
     if valid?
       create_user
-      # sign_in user
     end
   end
 
@@ -37,7 +37,7 @@ class Registration
   end
 
   def create_user
-    user = User.new(parameters)
-    user.save
+    @user = User.new(parameters)
+    @user.save
   end
 end
