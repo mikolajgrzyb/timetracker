@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    title Timetracker
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  body
+    header.navbar.navbar-default.main-bar
+      .container-fluid
+        .navbar-header
+          h1.title= link_to 'Timetracker', root_path, title: 'go to home page'
+        = render 'shared/navbar'
+    .container
+      .main-content
+        - if notice
+          p.alert.alert-success= notice
+        - if alert
+          p.alert.alert-danger= alert
+        = yield
