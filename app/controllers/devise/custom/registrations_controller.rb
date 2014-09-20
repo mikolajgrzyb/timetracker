@@ -17,6 +17,6 @@ class Devise::Custom::RegistrationsController < Devise::RegistrationsController
   private
 
   def registration_params
-    params.require(:registration).permit(:company_name, :email, :first_name, :last_name, :tos_accepted, :password, :password_confirmation)
+    params.require(:registration).permit(:company_name, :email, :first_name, :last_name, :tos_accepted, :password, :password_confirmation, :token)
   end
 end

@@ -1,4 +1,4 @@
-class  Registration
+class Registration
   include ActiveModel::Model
 
   attr_accessor(
@@ -10,15 +10,16 @@ class  Registration
       :password,
       :password_confirmation,
       :user,
-      :account
+      :account,
+      :token
   )
 
-  validates :company_name, presence: true
+  validates :company_name, presence: true, unless: -> {self.token}
   validates :email, presence: true
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :tos_accepted, acceptance: true
-  validates :password, length: { minimum: 6 }, confirmation: true
+  validates :password, length: {minimum: 6}, confirmation: true
   validates :password_confirmation, presence: true
   validate :uniq_email
 
@@ -60,6 +61,10 @@ class  Registration
   end
 
   def create_account
-    @account = Account.create(account_params.merge({owner: @user}))
+    if token
+      Account.find_by(token: token).members << @user
+    else
+      @account = Account.create(account_params.merge({owner: @user}))
+    end
   end
 end
