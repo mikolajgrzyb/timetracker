@@ -1,4 +1,4 @@
-class Registration
+class  Registration
   include ActiveModel::Model
 
   attr_accessor(

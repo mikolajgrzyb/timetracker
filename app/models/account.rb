@@ -5,7 +5,7 @@ class Account < ActiveRecord::Base
 
   before_create :set_token
 
-  validates :company_name, uniqueness: true
+  validates :owner_id, presence: true
 
   private
 

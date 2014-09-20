@@ -2,7 +2,7 @@ require 'faker'
 
 FactoryGirl.define do
 
-  factory :accounts do
+  factory :account do
     sequence :company_name do
       Faker::Company.name
     end

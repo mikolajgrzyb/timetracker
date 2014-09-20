@@ -6,5 +6,5 @@ class User < ActiveRecord::Base
 
   has_one :account, foreign_key: 'owner_id'
   has_many :account_members
-  has_many :memberships, through: :account_members, class_name: 'Account'
+  has_many :memberships, through: :account_members, source: :account
 end
