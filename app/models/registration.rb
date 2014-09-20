@@ -1,4 +1,4 @@
-class Registration
+class  Registration
   include ActiveModel::Model
 
   attr_accessor(
@@ -13,13 +13,14 @@ class Registration
       :account
   )
 
-  validate :company_name, presence: true
-  validate :email, presence: true, email: true, uniqueness: { case_sensitive: false, model: User, attribute: 'email' }
-  validate :first_name, presence: true
-  validate :last_name, presence: true
-  validate :tos_accepted, acceptance: true
-  validate :password, length: { minimum: 6 }, confirmation: true
-  validate :password_confirmation, presence: true
+  validates :company_name, presence: true
+  validates :email, presence: true
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :tos_accepted, acceptance: true
+  validates :password, length: { minimum: 6 }, confirmation: true
+  validates :password_confirmation, presence: true
+  validate :uniq_email
 
   def register
     if valid?
@@ -31,6 +32,11 @@ class Registration
   end
 
   private
+
+  def uniq_email
+    errors.add(:base, 'Email must be uniq') if User.exists?(email: email)
+
+  end
 
   def user_params
     {
