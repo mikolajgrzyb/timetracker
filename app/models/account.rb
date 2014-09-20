@@ -1,7 +1,7 @@
 class Account < ActiveRecord::Base
   belongs_to :owner, class_name: 'User'
   has_many :account_members
-  has_many :members, through: :account_members, class_name: 'User'
+  has_many :members, through: :account_members, source: :user, class_name: 'User', foreign_key: 'user_id'
 
   before_create :set_token
 
