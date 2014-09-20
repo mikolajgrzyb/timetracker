@@ -53,6 +53,8 @@ end
 group :test do
   gem 'factory_girl_rails'
   gem 'simplecov', :require => false
+  gem 'database_cleaner', '~> 1.2'
+  gem 'faker'
 end
 
 # Use ActiveModel has_secure_password
