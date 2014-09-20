@@ -18,9 +18,14 @@ ul.nav.navbar-nav.navbar-right.main-nav
       ul.dropdown-menu aria-labelledby="dropdownMenu2" role="menu"
         li role="presentation"
           = link_to 'My profile', root_path, role: 'menuitem', tabindex: -1
+        li role="presentation"
           = link_to 'Account 1', root_path, role: 'menuitem', tabindex: -1
+        li role="presentation"
           = link_to 'Account 2', root_path, role: 'menuitem', tabindex: -1
+        li role="presentation"
           = link_to 'Account 3', root_path, role: 'menuitem', tabindex: -1
+        li role="presentation"
+          = link_to 'Sign out', destroy_user_session_path, method: :delete
   -else
       li= link_to 'Sign up', new_user_registration_path
       li= link_to 'Sign in', new_user_session_path
