@@ -23,9 +23,7 @@ class Devise::Custom::RegistrationsController < Devise::RegistrationsController
 
     @registration = EditRegistration.new(user_id: edit_registration_params[:user_id], params: edit_registration_params)
 
-    if @registration.update
-      sign_up(:user, @registration.user)
-    end
+    @registration.update
 
     respond_with @registration, location: accounts_url
 

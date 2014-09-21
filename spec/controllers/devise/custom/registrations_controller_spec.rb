@@ -2,13 +2,11 @@ require 'rails_helper'
 
 describe Devise::Custom::RegistrationsController, type: :controller do
 
-  let(:registration) { create_registration }
-
   before do
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end
 
-  describe "#new" do
+  describe "GET#new" do
 
     it "renders new template" do
       get :new
@@ -17,18 +15,20 @@ describe Devise::Custom::RegistrationsController, type: :controller do
 
     it "assigns new registration" do
       get :new
-      expect(assigns(:registration)).to be_a_new Registration
+      expect(assigns(:registration)).to be_a Registration
     end
 
   end
 
-  describe "#create" do
+  describe "POST#create" do
 
     context "when attributes are valid" do
 
-      context "when with token param" do
+      let(:registration) { create_registration }
 
-        let(:attributes_for_request) { attributes_for(:registration) }
+      let(:attributes_for_request) { attributes_for(:registration) }
+
+      context "when with token param" do
 
         it "assigns registration with params" do
           post :create, registration: attributes_for_request
@@ -36,8 +36,9 @@ describe Devise::Custom::RegistrationsController, type: :controller do
         end
 
         it "creates new user" do
-          post :create, registration: attributes_for_request
-          expect(assigns(:registration)).to be_a Registration
+          expect {
+            post :create, registration: attributes_for_request
+          }.to change(User, :count).by 1
         end
 
         it "adds user to account members" do
@@ -48,10 +49,7 @@ describe Devise::Custom::RegistrationsController, type: :controller do
 
         it "redirects to accounts url" do
           post :create, registration: attributes_for_request
-        end
-
-        it "signs up user" do
-          post :create
+          expect(response).to redirect_to accounts_path
         end
 
       end
@@ -71,11 +69,8 @@ describe Devise::Custom::RegistrationsController, type: :controller do
         end
 
         it "redirects to accounts url" do
-          post :create
-        end
-
-        it "signs up user" do
-          post :create
+          post :create, registration: attributes_for_request
+          expect(response).to redirect_to accounts_path
         end
 
       end
@@ -84,6 +79,10 @@ describe Devise::Custom::RegistrationsController, type: :controller do
 
     context "when attributes are invalid" do
 
+      let(:registration) { create(:invalid_registration) }
+
+      let(:attributes_for_request) { attributes_for(:registration) }
+
       it "doesnt create new registration" do
         expect {
           post :create
@@ -91,7 +90,7 @@ describe Devise::Custom::RegistrationsController, type: :controller do
       end
 
       it "renders new form" do
-        post :create, registration: attributes_for_registration
+        post :create, registration: attributes_for_request
         expect(response).to render_template :new
       end
 
@@ -121,7 +120,7 @@ describe Devise::Custom::RegistrationsController, type: :controller do
       sign_in :user, user
     end
     it 'updates user' do
-      put :update, edit_registration: {user_id: user.id, first_name: 'Mariusz', last_name: 'wojciech'}
+      put :update, edit_registration: {user_id: user.id, first_name: 'Mariusz', last_name: 'wojciech', email: 'test@test.pl'}
       expect(user.reload.first_name).to eq 'Mariusz'
     end
 
