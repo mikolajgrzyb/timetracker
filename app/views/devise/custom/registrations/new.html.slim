@@ -1,7 +1,8 @@
 h2
   | Sign up
-  = render partial: 'shared/errors', locals: {object: @registration}
+= render partial: 'shared/errors', locals: {object: @registration}
 
+<<<<<<< HEAD
   = form_for @registration, url: user_registration_path do |f|
     = f.hidden_field :token, value: params[:token]
     .input-group
@@ -28,3 +29,31 @@ h2
       = f.check_box :tos_accepted, class: 'form-control'
     .input-group
       = f.submit
+=======
+= form_for @registration, url: user_registration_path, role: 'form' do |f|
+  = f.  hidden_field :token, value: params[:token]
+  .form-group
+    = f.label :first_name
+    = f.text_field :first_name, class: 'form-control'
+  .form-group
+    = f.label :last_name
+    = f.text_field :last_name, class: 'form-control'
+  - if !params[:token]
+    .form-group
+      = f.label :company_name
+      = f.text_field :company_name, class: 'form-control'
+  .form-group
+    = f.label :email
+    = f.email_field :email, class: 'form-control'
+  .form-group
+    = f.label :password
+    = f.password_field :password, class: 'form-control'
+  .form-group
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation, class: 'form-control'
+  .form-group
+    = f.label :tos_accepted
+    = f.check_box :tos_accepted, class: 'form-control'
+  .form-group
+    = f.submit
+>>>>>>> 608e21efb6310d526b2cde089a2bde317bd901e7
