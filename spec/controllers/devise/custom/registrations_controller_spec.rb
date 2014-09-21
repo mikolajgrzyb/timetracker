@@ -24,7 +24,7 @@ describe Devise::Custom::RegistrationsController, type: :controller do
 
     context "when attributes are valid" do
 
-      let(:registration) { create_registration }
+      let(:registration) { create(:registration) }
 
       let(:attributes_for_request) { attributes_for(:registration) }
 
@@ -57,15 +57,20 @@ describe Devise::Custom::RegistrationsController, type: :controller do
       context "when without token param" do
 
         it "assigns registration with params" do
-          post :create
+          post :create, registration: attributes_for_request
+          expect(assigns(:registration))
         end
 
         it "creates new user" do
-          post :create
+          expect {
+            post :create, registration: attributes_for_request
+          }.to change(User, :count).by 1
         end
 
         it "creates account" do
-          post :create
+          expect {
+            post :create, registration: attributes_for_request
+          }.to change(Account, :count).by 1
         end
 
         it "redirects to accounts url" do
@@ -85,7 +90,7 @@ describe Devise::Custom::RegistrationsController, type: :controller do
 
       it "doesnt create new registration" do
         expect {
-          post :create
+          post :create, registration: attributes_for_request
         }.to_not change(User, :count)
       end
 
