@@ -99,4 +99,24 @@ describe Devise::Custom::RegistrationsController, type: :controller do
 
   end
 
+  describe  "GET #edit" do
+    let!(:user) {create :user}
+    let!(:account) {create :account, owner: user}
+
+    before do
+      sign_in :user, user
+    end
+    it 'renders edit template' do
+      get :edit, format: user.id
+      expect(response).to render_template :edit
+    end
+
+  end
+
+  describe "PUT #update" do
+
+
+  end
+
+
 end
