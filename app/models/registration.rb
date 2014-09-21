@@ -16,7 +16,7 @@ class Registration
   )
 
   validates :company_name, presence: true, unless: -> { self.token }
-  validates :email, presence: true, email: true
+  validates :email, presence: true, format: {with: Devise.email_regexp}
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :tos_accepted, acceptance: true, presence: true
@@ -33,20 +33,11 @@ class Registration
     end
   end
 
-
-
-
-
-
   private
 
-  def update_user
-
-  end
 
   def uniq_email
     errors.add(:email, 'Email must be uniq') if User.exists?(email: email)
-
   end
 
   def user_params
