@@ -6,7 +6,7 @@ class AccountsController < ApplicationController
   end
 
   def invite
-    InvitationMailer.invite(params[:email], current_user.account.token).deliver
+    InvitationMailer.invite(current_user, params[:email]).deliver
     redirect_to account_url(@account)
   end
 
