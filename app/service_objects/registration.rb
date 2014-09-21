@@ -69,8 +69,12 @@ class Registration
 
   def create_account
     unless token.blank?
-      Invitation.find_by(token: token).account.
-      Account.find_by(token: token).members << @user
+      invitation = Invitation.find_by(token: token)
+      if invitation
+        invitation.account.members << @user
+        invitation.destroy
+      end
+
     else
       @user.accounts.build(account_params)
     end
