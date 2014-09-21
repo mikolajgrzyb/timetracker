@@ -99,9 +99,9 @@ describe Devise::Custom::RegistrationsController, type: :controller do
 
   end
 
-  describe  "GET #edit" do
-    let!(:user) {create :user}
-    let!(:account) {create :account, owner: user}
+  describe "GET #edit" do
+    let!(:user) { create :user }
+    let!(:account) { create :account, owner: user }
 
     before do
       sign_in :user, user
@@ -114,7 +114,16 @@ describe Devise::Custom::RegistrationsController, type: :controller do
   end
 
   describe "PUT #update" do
+    let!(:user) { create :user }
+    let!(:account) { create :account, owner: user }
 
+    before do
+      sign_in :user, user
+    end
+    it 'updates user' do
+      put :update, edit_registration: {user_id: user.id, first_name: 'Mariusz', last_name: 'wojciech'}
+      expect(user.reload.first_name).to eq 'Mariusz'
+    end
 
   end
 
