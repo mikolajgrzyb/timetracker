@@ -33,7 +33,7 @@ class EditRegistration
     @user = User.find(options[:user_id])
     @account = user.try(:account)
     @params = options[:params]
-    assign_attributes if options[:params] 
+    assign_attributes if @params
   end
 
   def persisted?

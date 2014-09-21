@@ -121,7 +121,7 @@ describe Devise::Custom::RegistrationsController, type: :controller do
       sign_in :user, user
     end
     it 'updates user' do
-      put :update, edit_registration: {user_id: user.id, first_name: 'Mariusz', last_name: 'wojciech'}
+      put :update, edit_registration: {user_id: user.id, first_name: 'Mariusz', last_name: 'wojciech', email: 'test@test.pl'}
       expect(user.reload.first_name).to eq 'Mariusz'
     end
 
