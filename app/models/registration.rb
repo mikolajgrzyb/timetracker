@@ -14,7 +14,7 @@ class Registration
       :token
   )
 
-  validates :company_name, presence: true, unless: -> {self.token}
+  validates :company_name, presence: true, unless: -> { self.token }
   validates :email, presence: true, email: true
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -35,7 +35,7 @@ class Registration
   private
 
   def uniq_email
-    errors.add(:email, 'Email must be uniq') if User.exists?(email: email)
+    errors.add(:base, 'Email must be uniq') if User.exists?(email: email)
 
   end
 

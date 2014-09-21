@@ -32,25 +32,25 @@ describe Registration, type: :model do
       it "is not valid without first name" do
         registration.first_name = nil
         registration.valid?
-        expect(registration.errors.messages[:first_name]).not_to be_nil
+        expect(registration.errors.messages[:first_name].size).to eq 1
       end
 
       it "is not valid without last_name" do
         registration.last_name = nil
         registration.valid?
-        expect(registration.errors.messages[:last_name]).not_to be_nil
+        expect(registration.errors.messages[:last_name].size).to eq 1
       end
 
       it "is not valid without company_name" do
         registration.company_name = nil
         registration.valid?
-        expect(registration.errors.messages[:company_name]).not_to be_nil
+        expect(registration.errors.messages[:company_name].size).to eq 1
       end
 
       it "is not valid without email" do
         registration.email = nil
         registration.valid?
-        expect(registration.errors.messages[:email]).not_to be_nil
+        expect(registration.errors.messages[:email].size).to eq 2
       end
 
       it "is not valid without tos_accepted" do
@@ -75,7 +75,7 @@ describe Registration, type: :model do
         registration1 = create_registration
         registration1.register
 
-        expect(registration.errors.messages[:password_confirmation]).not_to be_nil
+        expect(registration.errors.messages[:password_confirmation].size).to eq 1
         registration2 = create_static_registration
         registration2.email = registration1.email
         registration2.register
