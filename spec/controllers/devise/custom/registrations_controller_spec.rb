@@ -85,7 +85,7 @@ describe Devise::Custom::RegistrationsController, type: :controller do
 
       it "doesnt create new registration" do
         expect {
-          post :create
+          post :create, registration: {company_name: 'lol'}
         }.to_not change(User, :count)
       end
 
