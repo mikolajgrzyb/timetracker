@@ -5,7 +5,7 @@ class Devise::Custom::RegistrationsController < Devise::RegistrationsController
   end
 
   def create
-    @registration = Registration.new(registration_params)
+    @registration = Registration.new(new_registration_params)
 
     if @registration.register
       sign_up(:user, @registration.user)
@@ -21,7 +21,7 @@ class Devise::Custom::RegistrationsController < Devise::RegistrationsController
 
   def update
 
-    @registration = EditRegistration.new(user_id: registration_params[:user_id], params: registration_params)
+    @registration = EditRegistration.new(user_id: edit_registration_params[:user_id], params: edit_registration_params)
 
     if @registration.update
       sign_up(:user, @registration.user)
@@ -33,7 +33,11 @@ class Devise::Custom::RegistrationsController < Devise::RegistrationsController
 
   private
 
-  def registration_params
+  def new_registration_params
+    params.require(:registration).permit(:company_name, :email, :first_name, :last_name, :tos_accepted, :password, :password_confirmation, :token)
+  end
+
+  def edit_registration_params
     params.require(:edit_registration).permit(:user_id, :company_name, :email, :first_name, :last_name, :tos_accepted, :password, :password_confirmation, :token, :avatar)
   end
 end
