@@ -4,7 +4,7 @@ RSpec.describe AccountsController, :type => :controller do
 
   context 'when user is not logged in ' do
     it 'redirects to root path' do
-      get :index
+      get :show
       expect(response).to redirect_to new_user_session_path
     end
   end
@@ -16,13 +16,13 @@ RSpec.describe AccountsController, :type => :controller do
       sign_in :user, user
     end
 
-    describe "GET index" do
+    describe "GET show" do
       it "returns http success" do
-        get :index
+        get :show
         expect(response).to be_success
       end
       it 'assigns user account to @account' do
-        get :index
+        get :show
       end
 
     end

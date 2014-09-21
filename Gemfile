@@ -42,7 +42,7 @@ end
 
 # Authentication
 gem 'devise'
-
+gem 'friendly_id', '~> 5.0.0'
 
 # gem 'html5_validators'
 

@@ -55,7 +55,7 @@ describe Devise::Custom::RegistrationsController, type: :controller do
 
         it "redirects to accounts url" do
           post :create, registration: attributes_for(:registration, token: account.token)
-          expect(response).to redirect_to accounts_path
+          expect(response).to redirect_to account_path(account)
         end
 
       end
@@ -81,7 +81,7 @@ describe Devise::Custom::RegistrationsController, type: :controller do
 
         it "redirects to accounts url" do
           post :create, registration: attributes_for(:registration)
-          expect(response).to redirect_to accounts_path
+          expect(response).to redirect_to account_path(Account.last)
         end
 
       end
@@ -92,11 +92,8 @@ describe Devise::Custom::RegistrationsController, type: :controller do
 
       it "doesnt create new registration" do
         expect {
-<<<<<<< HEAD
-          post :create, registration: {company_name: 'lol'}
-=======
           post :create, registration: attributes_for(:invalid_registration)
->>>>>>> fc04e7f3f38da4cb87d09a4fcedcc98ba04558e1
+
         }.to_not change(User, :count)
       end
 

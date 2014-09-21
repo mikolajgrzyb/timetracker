@@ -11,7 +11,7 @@ class Devise::Custom::RegistrationsController < Devise::RegistrationsController
       sign_up(:user, @registration.user)
     end
 
-    respond_with @registration, location: accounts_url
+    respond_with @registration, location: @registration.user.try(:first_account) ? account_url(@registration.user.first_account) : root_url
   end
 
   def edit
@@ -25,7 +25,7 @@ class Devise::Custom::RegistrationsController < Devise::RegistrationsController
 
     @registration.update
 
-    respond_with @registration, location: accounts_url
+    respond_with @registration, location: account_url(@registration.user.first_account)
 
   end
 

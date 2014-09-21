@@ -10,6 +10,10 @@ class User < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
+  def first_account
+    account || memberships.first
+  end
+
 
 
 end

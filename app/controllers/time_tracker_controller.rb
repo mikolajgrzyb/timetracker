@@ -1,6 +1,6 @@
 class TimeTrackerController < ApplicationController
 
-  def index
+  def show
 
   end
 
