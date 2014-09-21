@@ -15,6 +15,7 @@ class EditRegistration
       :persisted
   )
 
+
   delegate :first_name, :last_name, :password, :password_confirmation, :email, to: :user
   delegate :company_name, to: :account
 
