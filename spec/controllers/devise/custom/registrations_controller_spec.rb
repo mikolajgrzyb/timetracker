@@ -17,7 +17,7 @@ describe Devise::Custom::RegistrationsController, type: :controller do
 
     it "assigns new registration" do
       get :new
-      expect(assigns(:registration)).to be_a_new Registration
+      expect(assigns(:registration)).to be_a Registration
     end
 
   end
