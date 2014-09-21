@@ -8,5 +8,5 @@ def create_registration
         email: Faker::Internet.email,
         password: 'password',
         password_confirmation: 'password',
-        tos_accepted: true)
+        tos_accepted: 1)
 end
