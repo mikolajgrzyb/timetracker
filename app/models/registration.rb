@@ -67,7 +67,7 @@ class Registration
 
   def create_user
     @user = User.new(user_params)
-    @user.save
+    @user.save!
   end
 
   def create_account
