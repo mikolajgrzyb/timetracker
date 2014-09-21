@@ -3,15 +3,17 @@ h2
   = render partial: 'shared/errors', locals: {object: @registration}
 
   = form_for @registration, url: user_registration_path do |f|
+    = f.  hidden_field :token, value: params[:token]
     .input-group
       = f.label :first_name
       = f.text_field :first_name, class: 'form-control'
     .input-group
       = f.label :last_name
       = f.text_field :last_name, class: 'form-control'
-    .input-group
-      = f.label :company_name
-      = f.text_field :company_name, class: 'form-control'
+    - if !params[:token]
+      .input-group
+        = f.label :company_name
+        = f.text_field :company_name, class: 'form-control'
     .input-group
       = f.label :email
       = f.email_field :email, class: 'form-control'
