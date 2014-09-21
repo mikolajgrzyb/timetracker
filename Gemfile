@@ -34,6 +34,8 @@ gem 'slim'
 
 gem 'carrierwave'
 
+gem 'mini_magick'
+
 group :production, :staging do
   gem 'rails_12factor'
 end
