@@ -58,8 +58,6 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     docile (1.1.5)
-    email_validator (1.4.0)
-      activemodel
     erubis (2.7.0)
     execjs (2.2.1)
     factory_girl (4.4.0)
@@ -186,7 +184,6 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   database_cleaner (~> 1.2)
   devise
-  email_validator
   factory_girl_rails
   faker
   jbuilder (~> 2.0)

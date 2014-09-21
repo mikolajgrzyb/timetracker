@@ -43,7 +43,7 @@ end
 # Authentication
 gem 'devise'
 
-gem 'email_validator'
+
 # gem 'html5_validators'
 
 
