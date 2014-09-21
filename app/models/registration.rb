@@ -11,7 +11,8 @@ class Registration
       :password_confirmation,
       :user,
       :account,
-      :token
+      :token,
+      :persisted
   )
 
   validates :company_name, presence: true, unless: -> { self.token }
@@ -32,7 +33,16 @@ class Registration
     end
   end
 
+
+
+
+
+
   private
+
+  def update_user
+
+  end
 
   def uniq_email
     errors.add(:email, 'Email must be uniq') if User.exists?(email: email)

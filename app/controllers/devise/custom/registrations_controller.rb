@@ -14,9 +14,26 @@ class Devise::Custom::RegistrationsController < Devise::RegistrationsController
     respond_with @registration, location: accounts_url
   end
 
+  def edit
+    @registration = EditRegistration.new(user_id: params[:format])
+
+  end
+
+  def update
+
+    @registration = EditRegistration.new(user_id: registration_params[:user_id], params: registration_params)
+
+    if @registration.update
+      sign_up(:user, @registration.user)
+    end
+
+    respond_with @registration, location: accounts_url
+
+  end
+
   private
 
   def registration_params
-    params.require(:registration).permit(:company_name, :email, :first_name, :last_name, :tos_accepted, :password, :password_confirmation, :token)
+    params.require(:edit_registration).permit(:user_id, :company_name, :email, :first_name, :last_name, :tos_accepted, :password, :password_confirmation, :token, :avatar)
   end
 end

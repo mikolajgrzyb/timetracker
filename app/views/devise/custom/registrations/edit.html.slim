@@ -1,0 +1,32 @@
+h2
+  | Settings
+  = render partial: 'shared/errors', locals: {object: @registration}
+
+= form_for @registration, url: user_registration_path  do |f|
+
+  = f.hidden_field :user_id, value: params[:format] || @registration.user.id
+  .form-group
+    = f.label :first_name
+    = f.text_field :first_name, class: 'form-control'
+  .form-group
+    = f.label :last_name
+    = f.text_field :last_name, class: 'form-control'
+  - if @registration.account
+    .form-group
+      = f.label :company_name
+      = f.text_field :company_name, class: 'form-control'
+  .form-group
+    = f.label :email
+    = f.email_field :email, class: 'form-control'
+  .form-group
+    = f.label :password
+    = f.password_field :password, class: 'form-control'
+  .form-group
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation, class: 'form-control'
+  .form-group
+    = f.label :avatar
+    = f.file_field :avatar
+
+
+  = f.submit 'Save', class: 'btn btn-primary'
