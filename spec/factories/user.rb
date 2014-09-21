@@ -4,6 +4,10 @@ FactoryGirl.define do
 
   factory :user do
 
+    sequence first_name do
+
+    end
+
     sequence :email do
       Faker::Internet.email
     end
