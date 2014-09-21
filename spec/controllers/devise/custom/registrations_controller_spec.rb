@@ -6,7 +6,7 @@ describe Devise::Custom::RegistrationsController, type: :controller do
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end
 
-  describe "#new" do
+  describe "GET#new" do
 
     it "renders new template" do
       get :new
@@ -20,7 +20,7 @@ describe Devise::Custom::RegistrationsController, type: :controller do
 
   end
 
-  describe "#create" do
+  describe "POST#create" do
 
     context "when attributes are valid" do
 
