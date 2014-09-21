@@ -24,31 +24,37 @@ describe Devise::Custom::RegistrationsController, type: :controller do
 
     context "when attributes are valid" do
 
-      let(:registration) { create_registration }
-
-      let(:attributes_for_request) { attributes_for(:registration) }
-
       context "when with token param" do
 
+        let(:user) { create(:user) }
+        let!(:account) { create(:account, owner: user) }
+
         it "assigns registration with params" do
-          post :create, registration: attributes_for_request
+          post :create, registration: attributes_for(:registration, token: account.token)
           expect(assigns(:registration))
+
         end
 
         it "creates new user" do
           expect {
-            post :create, registration: attributes_for_request
+            post :create, registration: attributes_for(:registration, token: account.token)
           }.to change(User, :count).by 1
+        end
+
+        it "doesnt create new account" do
+          expect {
+            post :create, registration: attributes_for(:registration, token: account.token)
+          }.to_not change(Account, :count)
         end
 
         it "adds user to account members" do
           expect {
-            post :create, registration: attributes_for_request
-          }.to change(Account, :count).by 1
+            post :create, registration: attributes_for(:registration, token: account.token)
+          }.to change(AccountMember, :count).by 1
         end
 
         it "redirects to accounts url" do
-          post :create, registration: attributes_for_request
+          post :create, registration: attributes_for(:registration, token: account.token)
           expect(response).to redirect_to accounts_path
         end
 
@@ -57,19 +63,24 @@ describe Devise::Custom::RegistrationsController, type: :controller do
       context "when without token param" do
 
         it "assigns registration with params" do
-          post :create
+          post :create, registration: attributes_for(:registration)
+          expect(assigns(:registration))
         end
 
         it "creates new user" do
-          post :create
+          expect {
+            post :create, registration: attributes_for(:registration)
+          }.to change(User, :count).by 1
         end
 
         it "creates account" do
-          post :create
+          expect {
+            post :create, registration: attributes_for(:registration)
+          }.to change(Account, :count).by 1
         end
 
         it "redirects to accounts url" do
-          post :create, registration: attributes_for_request
+          post :create, registration: attributes_for(:registration)
           expect(response).to redirect_to accounts_path
         end
 
@@ -79,18 +90,14 @@ describe Devise::Custom::RegistrationsController, type: :controller do
 
     context "when attributes are invalid" do
 
-      let(:registration) { create(:invalid_registration) }
-
-      let(:attributes_for_request) { attributes_for(:registration) }
-
       it "doesnt create new registration" do
         expect {
-          post :create
+          post :create, registration: attributes_for(:invalid_registration)
         }.to_not change(User, :count)
       end
 
       it "renders new form" do
-        post :create, registration: attributes_for_request
+        post :create, registration: attributes_for(:invalid_registration)
         expect(response).to render_template :new
       end
 
