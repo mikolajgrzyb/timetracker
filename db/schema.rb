@@ -11,31 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140921082010) do
+ActiveRecord::Schema.define(version: 20140921134305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "account_members", force: true do |t|
+  create_table "accounts", force: true do |t|
+    t.string   "company_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "token"
+    t.boolean  "owner"
+    t.boolean  "admin"
+  end
+
+  add_index "accounts", ["token"], name: "index_accounts_on_token", using: :btree
+
+  create_table "memberships", force: true do |t|
     t.integer  "account_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "account_members", ["account_id"], name: "index_account_members_on_account_id", using: :btree
-  add_index "account_members", ["user_id"], name: "index_account_members_on_user_id", using: :btree
-
-  create_table "accounts", force: true do |t|
-    t.string   "company_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "owner_id"
-    t.string   "token"
-  end
-
-  add_index "accounts", ["owner_id"], name: "index_accounts_on_owner_id", using: :btree
-  add_index "accounts", ["token"], name: "index_accounts_on_token", using: :btree
+  add_index "memberships", ["account_id"], name: "index_memberships_on_account_id", using: :btree
+  add_index "memberships", ["user_id"], name: "index_memberships_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

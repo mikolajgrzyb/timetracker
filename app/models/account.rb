@@ -1,11 +1,10 @@
 class Account < ActiveRecord::Base
-  belongs_to :owner, class_name: 'User'
-  has_many :account_members
-  has_many :members, through: :account_members, source: :user, class_name: 'User', foreign_key: 'user_id'
+  has_many :members
+  has_many :users, through: :members
 
   before_create :set_token
 
-  validates :owner_id, presence: true
+  validates :company_name, presence: true
 
   private
 

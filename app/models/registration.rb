@@ -2,7 +2,7 @@ class Registration
   include ActiveModel::Model
 
   validates :company_name, presence: true, unless: -> { self.token }
-  validates :email, presence: true, format: {with: Devise.email_regexp}
+  validates :email, presence: true, format: { with: Devise.email_regexp }
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :tos_accepted, acceptance: true, presence: true
