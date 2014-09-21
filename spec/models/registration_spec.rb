@@ -81,7 +81,6 @@ describe Registration, type: :model do
         expect(registration2.errors.messages[:email]).not_to be_nil
       end
 
-
       it "doesn't create user" do
         registration.tos_accepted = false
         expect {
