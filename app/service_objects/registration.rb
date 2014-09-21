@@ -17,10 +17,15 @@ class Registration
                 :tos_accepted,
                 :password,
                 :password_confirmation,
-                :token,
                 :persisted,
+                :token,
                 :user,
-                :account
+                :account,
+                :invitation
+
+  delegate :company_name, to: :account
+  delegate :email, :first_name, :last_name, :tos_accepted, :password, :password_confirmation, :persisted, to: :user
+  delegate :token, to: :invitation
 
   def register
     if valid?
@@ -33,8 +38,10 @@ class Registration
 
   private
 
-  def uniq_email
-    errors.add(:email, 'Email must be uniq') if User.exists?(email: email)
+  def invitation_params
+    {
+        token: token
+    }
   end
 
   def user_params
@@ -49,7 +56,9 @@ class Registration
 
   def account_params
     {
-        company_name: company_name
+        company_name: company_name,
+        owner: true,
+        admin: true
     }
   end
 
@@ -60,9 +69,10 @@ class Registration
 
   def create_account
     unless token.blank?
+      Invitation.find_by(token: token).account.
       Account.find_by(token: token).members << @user
     else
-      @account = Account.create(account_params.merge({owner: @user}))
+      @user.accounts.build(account_params)
     end
   end
 end
