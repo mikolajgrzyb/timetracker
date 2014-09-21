@@ -1,6 +1,6 @@
 ul.nav.navbar-nav.navbar-right.main-nav
   -if user_signed_in?
-    = image_tag current_user.avatar.url, alt: 'avatar', class: "image-rounded"
+    = image_tag current_user.avatar.thumb.url, alt: 'avatar', class: "image-rounded"
     li= link_to 'Timer', accounts_path
     li= link_to 'Projects', root_path
     li= link_to 'Team', root_path
