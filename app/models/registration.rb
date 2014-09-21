@@ -1,19 +1,5 @@
 class Registration
-  include ActiveModel::Model
-
-  attr_accessor(
-      :company_name,
-      :email,
-      :first_name,
-      :last_name,
-      :tos_accepted,
-      :password,
-      :password_confirmation,
-      :user,
-      :account,
-      :token,
-      :persisted
-  )
+  include RegistrationsBase
 
   validates :company_name, presence: true, unless: -> { self.token }
   validates :email, presence: true, format: {with: Devise.email_regexp}

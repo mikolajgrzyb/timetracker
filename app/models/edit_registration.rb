@@ -1,5 +1,5 @@
 class EditRegistration
-  include ActiveModel::Model
+  include RegistrationsBase
 
   validates :company_name, presence: true, unless: -> { self.account }
   validates :email, presence: true, format: {with: Devise.email_regexp}
@@ -8,21 +8,6 @@ class EditRegistration
   validates :password, length: {minimum: 6}, confirmation: true, if: -> { @params[:password].present? }
   validates :password_confirmation, presence: true, if: -> { @params[:password].present? }
   validate :uniq_email
-
-  attr_accessor(
-      :company_name,
-      :email,
-      :first_name,
-      :last_name,
-      :tos_accepted,
-      :password,
-      :password_confirmation,
-      :user,
-      :account,
-      :token,
-      :persisted
-  )
-
 
   delegate :first_name, :last_name, :password, :password_confirmation, :email, to: :user
   delegate :company_name, to: :account
