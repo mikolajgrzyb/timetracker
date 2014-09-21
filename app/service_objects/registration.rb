@@ -17,10 +17,10 @@ class Registration
                 :tos_accepted,
                 :password,
                 :password_confirmation,
-                :user,
-                :account,
                 :token,
-                :persisted
+                :persisted,
+                :user,
+                :account
 
   def register
     if valid?
@@ -32,7 +32,6 @@ class Registration
   end
 
   private
-
 
   def uniq_email
     errors.add(:email, 'Email must be uniq') if User.exists?(email: email)

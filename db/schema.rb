@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140921134305) do
+ActiveRecord::Schema.define(version: 20140921140222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,12 +20,19 @@ ActiveRecord::Schema.define(version: 20140921134305) do
     t.string   "company_name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "token"
     t.boolean  "owner"
     t.boolean  "admin"
   end
 
-  add_index "accounts", ["token"], name: "index_accounts_on_token", using: :btree
+  create_table "invitations_tables", force: true do |t|
+    t.string   "token"
+    t.string   "email"
+    t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "invitations_tables", ["email"], name: "index_invitations_tables_on_email", using: :btree
 
   create_table "memberships", force: true do |t|
     t.integer  "account_id"
