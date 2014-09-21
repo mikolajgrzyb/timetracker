@@ -2,13 +2,12 @@ class EditRegistration
   include ActiveModel::Model
 
   validates :company_name, presence: true, unless: -> { self.account }
-  validates :email, presence: true, email: true
+  validates :email, presence: true, format: {with: Devise.email_regexp}
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :password, length: {minimum: 6}, confirmation: true, if: -> { @params[:password].present? }
   validates :password_confirmation, presence: true, if: -> { @params[:password].present? }
   validate :uniq_email
-
 
   attr_accessor(
       :company_name,
@@ -27,7 +26,6 @@ class EditRegistration
 
   delegate :first_name, :last_name, :password, :password_confirmation, :email, to: :user
   delegate :company_name, to: :account
-
 
   def initialize(options = {})
     @user = User.find(options[:user_id])
