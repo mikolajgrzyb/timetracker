@@ -33,7 +33,7 @@ class EditRegistration
     @user = User.find(options[:user_id])
     @account = user.try(:account)
     @params = options[:params]
-
+    assign_attributes if @params
   end
 
   def persisted?
@@ -44,8 +44,8 @@ class EditRegistration
   def update
     if valid?
       ActiveRecord::Base.transaction do
-        update_user
-        update_account if account
+        user.save!
+        account.save! if account
       end
 
     end
@@ -53,24 +53,29 @@ class EditRegistration
 
   private
 
+  def assign_attributes
+    @user.assign_attributes generate_params
+    @account.try(:assign_attributes, @params.slice(:company_name))
+  end
+
   def uniq_email
-    errors.add(:email, 'Email must be uniq') if !(user.email == @params[:email]) && User.exists?(email: @params[:email])
+    errors.add(:email, 'Email must be uniq') if !(user.email == @params[:email]) && User.exists?(id: @params[:user_id], email: email)
   end
 
   def update_user
-    user.update_attributes!(generate_params)
+    user.update_attributes(generate_params)
   end
 
   def update_account
-    account.update_attributes!(@params.slice(:company_name))
+    account.update_attributes(@params.slice(:company_name))
 
   end
 
   def generate_params
-    if @params[:password]
-      @params.slice(:first_name, :last_name, :avatar, :email)
-    else
+    if @params[:password].present?
       @params.slice(:first_name, :last_name, :avatar, :password, :password_confirmation, :email)
+    else
+      @params.slice(:first_name, :last_name, :avatar, :email)
     end
   end
 
