@@ -61,7 +61,7 @@ class Registration
   end
 
   def create_account
-    if token
+    unless token.blank?
       Account.find_by(token: token).members << @user
     else
       @account = Account.create(account_params.merge({owner: @user}))
