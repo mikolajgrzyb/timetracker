@@ -34,6 +34,8 @@ gem 'slim'
 
 gem 'carrierwave'
 
+gem 'mini_magick'
+
 group :production, :staging do
   gem 'rails_12factor'
 end
@@ -42,6 +44,7 @@ end
 gem 'devise'
 
 gem 'email_validator'
+# gem 'html5_validators'
 
 
 group :development do

@@ -4,8 +4,9 @@ describe Registration, type: :model do
 
   describe "#register" do
 
+    let(:registration) { create_registration }
+
     context "with valid params" do
-      let(:registration) { create_registration }
 
       it "is valid" do
         expect(registration).to be_valid
@@ -60,7 +61,7 @@ describe Registration, type: :model do
       end
 
       it "is not valid without password" do
-        registration.tos_accepted = nil
+        registration.password = nil
         registration.valid?
         expect(registration.errors.messages[:password]).not_to be_nil
       end
@@ -72,29 +73,27 @@ describe Registration, type: :model do
       end
 
       it "is not valid if email is not unique" do
-        registration1 = create_registration
-        registration1.register
-
-        expect(registration.errors.messages[:password_confirmation].size).to eq 1
-        registration2 = create_static_registration
-        registration2.email = registration1.email
+        registration.register
+        registration2 = create_registration
+        registration2.email = registration.email
         registration2.register
 
-        expect(registration.errors.messages[:email]).not_to be_nil
-
+        expect(registration2.errors.messages[:email]).not_to be_nil
       end
 
 
       it "doesn't create user" do
+        registration.tos_accepted = false
         expect {
           registration.register
-        }.to change(User, :count)
+        }.to_not change(User, :count)
       end
 
       it "doesn't create account" do
+        registration.tos_accepted = false
         expect {
           registration.register
-        }.not_to change(Account, :count)
+        }.to_not change(Account, :count)
 
       end
 

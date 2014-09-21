@@ -18,7 +18,7 @@ class Registration
   validates :email, presence: true, email: true
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :tos_accepted, acceptance: true
+  validates :tos_accepted, acceptance: {accept: true}, presence: true
   validates :password, length: {minimum: 6}, confirmation: true
   validates :password_confirmation, presence: true
   validate :uniq_email
@@ -35,7 +35,7 @@ class Registration
   private
 
   def uniq_email
-    errors.add(:base, 'Email must be uniq') if User.exists?(email: email)
+    errors.add(:email, 'Email must be uniq') if User.exists?(email: email)
 
   end
 
@@ -61,7 +61,7 @@ class Registration
   end
 
   def create_account
-    if token
+    unless token.blank?
       Account.find_by(token: token).members << @user
     else
       @account = Account.create(account_params.merge({owner: @user}))
