@@ -1,20 +1,6 @@
 class Registration
   include ActiveModel::Model
 
-  attr_accessor(
-      :company_name,
-      :email,
-      :first_name,
-      :last_name,
-      :tos_accepted,
-      :password,
-      :password_confirmation,
-      :user,
-      :account,
-      :token,
-      :persisted
-  )
-
   validates :company_name, presence: true, unless: -> { self.token }
   validates :email, presence: true, format: {with: Devise.email_regexp}
   validates :first_name, presence: true
@@ -23,6 +9,18 @@ class Registration
   validates :password, length: {minimum: 6}, confirmation: true
   validates :password_confirmation, presence: true
   validate :uniq_email
+
+  attr_accessor :company_name,
+                :email,
+                :first_name,
+                :last_name,
+                :tos_accepted,
+                :password,
+                :password_confirmation,
+                :user,
+                :account,
+                :token,
+                :persisted
 
   def register
     if valid?
