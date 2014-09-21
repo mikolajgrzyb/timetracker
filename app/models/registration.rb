@@ -18,7 +18,7 @@ class Registration
   validates :email, presence: true, email: true
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :tos_accepted, acceptance: {accept: true}, presence: true
+  validates :tos_accepted, acceptance: true, presence: true
   validates :password, length: {minimum: 6}, confirmation: true
   validates :password_confirmation, presence: true
   validate :uniq_email
