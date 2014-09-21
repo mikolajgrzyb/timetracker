@@ -58,11 +58,11 @@ class EditRegistration
   end
 
   def update_user
-    user.update_attributes(generate_params)
+    user.update_attributes!(generate_params)
   end
 
   def update_account
-    account.update_attributes(@params.slice(:company_name))
+    account.update_attributes!(@params.slice(:company_name))
 
   end
 
