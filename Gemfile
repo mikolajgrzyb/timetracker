@@ -44,7 +44,7 @@ end
 gem 'devise'
 
 gem 'email_validator'
-gem 'html5_validators'
+# gem 'html5_validators'
 
 
 group :development do
