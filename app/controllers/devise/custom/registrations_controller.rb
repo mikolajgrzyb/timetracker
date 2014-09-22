@@ -15,18 +15,13 @@ class Devise::Custom::RegistrationsController < Devise::RegistrationsController
   end
 
   def edit
-    @registration = EditRegistration.new(user_id: params[:format])
-
+    @registration = EditRegistration.new
   end
 
   def update
-
     @registration = EditRegistration.new(user_id: edit_registration_params[:user_id], params: edit_registration_params)
-
     @registration.update
-
     respond_with @registration, location: accounts_url
-
   end
 
   private
