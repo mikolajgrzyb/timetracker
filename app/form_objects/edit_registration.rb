@@ -18,7 +18,7 @@ class EditRegistration
   delegate :company_name, to: :account
 
   def initialize(options = {})
-    @user = User.find(options[:user_id])
+    @user = current_user
     @account = user.try(:account)
     @params = options[:params]
     assign_attributes if @params

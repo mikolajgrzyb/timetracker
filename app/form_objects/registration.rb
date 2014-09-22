@@ -23,10 +23,6 @@ class Registration
                 :account,
                 :invitation
 
-  delegate :company_name, to: :account
-  delegate :email, :first_name, :last_name, :tos_accepted, :password, :password_confirmation, :persisted, to: :user
-  delegate :token, to: :invitation
-
   def register
     if valid?
       ActiveRecord::Base.transaction do
@@ -37,12 +33,6 @@ class Registration
   end
 
   private
-
-  def invitation_params
-    {
-        token: token
-    }
-  end
 
   def user_params
     {
@@ -70,6 +60,7 @@ class Registration
   def create_account
     unless token.blank?
       invitation = Invitation.find_by(token: token)
+
       if invitation
         invitation.account.members << @user
         invitation.destroy
