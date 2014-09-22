@@ -1,0 +1,16 @@
+.field_with_errors {
+  label {
+    color: red;
+  }
+  input {
+    border: 1px red solid;
+  }
+}
+.twitter-typeahead {
+	width: 100%;
+}
+.required {
+	&:after {
+		content: '*'
+	}
+}

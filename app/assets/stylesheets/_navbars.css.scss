@@ -1,0 +1,36 @@
+.main-bar {
+	background: black;
+	padding: 10px 0;
+	.title {
+		margin: 0;
+		a {
+			@extend %hide-text;
+			display: block;
+			height: 85px;
+			width: 250px; 
+			background: asset_url("logo.png") no-repeat;
+		}
+	}
+}
+.navbar-default {
+	.navbar-nav {
+		& > li {
+			& > a {
+				color: #428bca;
+			}
+		}
+	}
+}
+.main-nav {
+	margin-top: 17px;
+}
+.avatar-holder {
+	padding-left: 25px;
+	position: relative;
+}
+.avatar {
+	position: absolute;
+	top: 12px;
+	left: 9px;
+	background: white;
+}
