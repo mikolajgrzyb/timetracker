@@ -19,8 +19,6 @@ class Registration
                 :password_confirmation,
                 :persisted,
                 :token,
-                :user,
-                :account,
                 :invitation
 
   def register
@@ -65,7 +63,6 @@ class Registration
         invitation.account.members << @user
         invitation.destroy
       end
-
     else
       @user.accounts.build(account_params)
     end

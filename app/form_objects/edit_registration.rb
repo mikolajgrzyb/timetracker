@@ -9,10 +9,14 @@ class EditRegistration
   validates :password_confirmation, presence: true, if: -> { @params[:password].present? }
   validate :uniq_email
 
-  attr_accessor(
-      :user,
-      :account
-  )
+  attr_accessor :user,
+                :account
+
+  attr_accessor :first_name,
+                :last_name,
+                :email,
+                :password,
+                :password_confirmation,
 
   delegate :first_name, :last_name, :password, :password_confirmation, :email, to: :user
   delegate :company_name, to: :account
