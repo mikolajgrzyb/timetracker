@@ -1,32 +1,10 @@
 class EditRegistration
-  include ActiveModel::Model
+  include RegistrationValidation
 
-  validates :company_name, presence: true, unless: -> { self.account }
-  validates :email, presence: true, format: { with: Devise.email_regexp }
-  validates :first_name, presence: true
-  validates :last_name, presence: true
-  validates :password, length: {minimum: 6}, confirmation: true, if: -> { @params[:password].present? }
-  validates :password_confirmation, presence: true, if: -> { @params[:password].present? }
-  validate :uniq_email
+  attr_accessor :user
 
-  attr_accessor :user,
-                :account
-
-  attr_accessor :first_name,
-                :last_name,
-                :email,
-                :password,
-                :password_confirmation,
-
-  delegate :first_name, :last_name, :password, :password_confirmation, :email, to: :user
-  delegate :company_name, to: :account
-
-  def initialize(options = {})
-    @user = current_user
-    @account = user.try(:account)
-    @params = options[:params]
-    assign_attributes if @params
-  end
+  validates :password, length: {minimum: 6}, confirmation: true, unless: password.blank?
+  validates :password_confirmation, presence: true, unless: password.blank?
 
   def persisted?
     true
@@ -35,39 +13,23 @@ class EditRegistration
   def update
     if valid?
       ActiveRecord::Base.transaction do
-        user.save!
-        account.save! if account
+        update_user
       end
-
     end
-  end
-
-  private
-
-  def assign_attributes
-    @user.assign_attributes generate_params
-    @account.try(:assign_attributes, @params.slice(:company_name))
-  end
-
-  def uniq_email
-    errors.add(:email, 'Email must be uniq') if !(user.email.downcase == @params[:email].downcase) && User.exists?(id: @params[:user_id], email: email)
   end
 
   def update_user
-    user.update_attributes(generate_params)
+    user.update_attributes(user_params)
+    user.save!(validate: false)
   end
 
-  def update_account
-    account.update_attributes(@params.slice(:company_name))
-
+  def user_params
+    {
+        first_name: first_name,
+        last_name: last_name,
+        email: email,
+        avatar: avatar,
+        password: password
+    }.except(:password) unless password.present?
   end
-
-  def generate_params
-    if @params[:password].present?
-      @params.slice(:first_name, :last_name, :avatar, :password, :password_confirmation, :email)
-    else
-      @params.slice(:first_name, :last_name, :avatar, :email)
-    end
-  end
-
 end

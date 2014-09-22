@@ -1,25 +1,15 @@
 class Registration
-  include ActiveModel::Model
-
-  validates :company_name, presence: true, unless: -> { self.token }
-  validates :email, presence: true, format: { with: Devise.email_regexp }
-  validates :first_name, presence: true
-  validates :last_name, presence: true
-  validates :tos_accepted, acceptance: true, presence: true
-  validates :password, length: {minimum: 6}, confirmation: true
-  validates :password_confirmation, presence: true
-  validate :uniq_email
+  include RegistrationValidation
 
   attr_accessor :company_name,
-                :email,
-                :first_name,
-                :last_name,
                 :tos_accepted,
-                :password,
-                :password_confirmation,
                 :persisted,
-                :token,
-                :invitation
+                :token
+
+  validates :company_name, presence: true, unless: -> { self.token }
+  validates :password, length: {minimum: 6}, confirmation: true
+  validates :password_confirmation, presence: true
+  validates :tos_accepted, acceptance: true, presence: true
 
   def register
     if valid?
@@ -52,7 +42,7 @@ class Registration
 
   def create_user
     @user = User.new(user_params)
-    @user.save!
+    @user.save!(validate: false)
   end
 
   def create_account
