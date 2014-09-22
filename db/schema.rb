@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140921140222) do
+ActiveRecord::Schema.define(version: 20140922184646) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,25 +24,34 @@ ActiveRecord::Schema.define(version: 20140921140222) do
     t.boolean  "admin"
   end
 
-  create_table "invitations_tables", force: true do |t|
+  create_table "invitations", force: true do |t|
     t.string   "token"
-    t.string   "email"
+    t.string   "invitee_email"
     t.integer  "account_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "inviter_id"
   end
 
-  add_index "invitations_tables", ["email"], name: "index_invitations_tables_on_email", using: :btree
+  add_index "invitations", ["invitee_email"], name: "index_invitations_tables_on_email", using: :btree
 
-  create_table "memberships", force: true do |t|
+  create_table "members", force: true do |t|
     t.integer  "account_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "memberships", ["account_id"], name: "index_memberships_on_account_id", using: :btree
-  add_index "memberships", ["user_id"], name: "index_memberships_on_user_id", using: :btree
+  add_index "members", ["account_id"], name: "index_members_on_account_id", using: :btree
+  add_index "members", ["user_id"], name: "index_members_on_user_id", using: :btree
+
+  create_table "projects", force: true do |t|
+    t.string  "name"
+    t.integer "billable"
+    t.integer "estimated_number_of_hours"
+    t.float   "default_hourly_rate"
+    t.string  "currency"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
