@@ -1,0 +1,6 @@
+= form_for @invitation do |f|
+  = render partial: 'shared/errors', locals: {object: @invitation }
+  .form-group
+    = f.label :email
+    = f.text_area :email, class: 'form-control'
+  = f.submit
