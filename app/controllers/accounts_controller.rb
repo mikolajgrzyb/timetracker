@@ -16,6 +16,10 @@ class AccountsController < ApplicationController
 
   end
 
+  def settings
+
+  end
+
   def create
     @account = Account.new(account_params)
 
