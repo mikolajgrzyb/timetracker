@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Devise::Custom::RegistrationsController, type: :controller do
+describe Auth::RegistrationsController, type: :controller do
 
   before do
     @request.env["auth.mapping"] = Devise.mappings[:user]
