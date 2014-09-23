@@ -16,6 +16,7 @@ class InvitationsController < ApplicationController
     @invitation = Invitation.new(invitation_params)
 
     if @invitation.save
+      InvitationMailer.invite(params[:email], invitation.token).deliver
       redirect_to invitation_url(@invitation), notice: 'Invitation was successfully created.'
     else
       render action: 'new'
