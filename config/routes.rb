@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   end
 
   resources :accounts, shallow: true do
+    get 'settings', on: :member
+    get 'team', on: :member
+    get 'timer', on: :member
     resources :projects
     resources :timers, only: :index
     resources :teams, only: :index
