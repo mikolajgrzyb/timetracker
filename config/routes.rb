@@ -10,5 +10,7 @@ Rails.application.routes.draw do
 
   resources :accounts, shallow: true do
     resources :projects
+    resources :timers, only: :index
+    resources :teams, only: :index
   end
 end
