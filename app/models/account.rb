@@ -6,7 +6,5 @@ class Account < ActiveRecord::Base
   has_many :invitations
   has_many :projects
 
-  validates :company_name, presence: true
-
   friendly_id :company_name, use: [:slugged, :finders]
 end
