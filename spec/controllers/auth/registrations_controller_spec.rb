@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Devise::Custom::RegistrationsController, type: :controller do
 
   before do
-    @request.env["devise.mapping"] = Devise.mappings[:user]
+    @request.env["auth.mapping"] = Devise.mappings[:user]
   end
 
   describe "GET#new" do
