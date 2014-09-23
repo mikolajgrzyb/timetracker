@@ -8,9 +8,5 @@ Rails.application.routes.draw do
     get "signup", to: "devise/registrations#new"
   end
 
-  resource :accounts, only: [:show] do
-    post
-  end
-
-  post 'invite', to: 'accounts#invite'
+  resource :accounts, only: [:index, :new, :create, :edit, :update, :destroy]
 end
