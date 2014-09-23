@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe TimeTrackerController, :type => :controller do
+RSpec.describe StaticPagesController, :type => :controller do
 
   it '#index' do
     get :index
