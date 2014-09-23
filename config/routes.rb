@@ -8,5 +8,7 @@ Rails.application.routes.draw do
     get "signup", to: "devise/registrations#new"
   end
 
-  resource :accounts, only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :accounts, shallow: true do
+    resources :projects
+  end
 end
