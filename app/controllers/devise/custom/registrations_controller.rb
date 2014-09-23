@@ -20,7 +20,7 @@ class Devise::Custom::RegistrationsController < Devise::RegistrationsController
 
   def update
     @registration = EditRegistration.new(edit_registration_params)
-    @registration.update
+    @registration.update(current_user)
     respond_with @registration, location: accounts_url
   end
 
