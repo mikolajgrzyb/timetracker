@@ -13,7 +13,8 @@ class InvitationsController < ApplicationController
   end
 
   def create
-    @invitation = Invitation.new(invitation_params)
+    @account = Account.find(params[:account_id])
+    @invitation = @account.invitations.build(invitation_params)
 
     if @invitation.save
       InvitationMailer.invite(params[:email], invitation.token).deliver
