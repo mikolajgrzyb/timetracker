@@ -16,7 +16,7 @@ class Registration
   validates :first_name, presence: true
   validates :last_name, presence: true
   validate :uniq_email
-  validates :password, length: {minimum: 6}, confirmation: true
+  validates :password, length: { minimum: 6 }, confirmation: true
   validates :password_confirmation, presence: true
   validates :company_name, presence: true, unless: -> { self.token }
   validates :tos_accepted, acceptance: true, presence: true
