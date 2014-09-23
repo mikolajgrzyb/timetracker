@@ -11,7 +11,7 @@ staging:
   adapter: postgresql
   host: localhost
   encoding: unicode
-  database: timetracker_development
+  database: timetracker_staging
   pool: 5
   username: postgres
   password: postgres
@@ -20,7 +20,7 @@ test:
   adapter: postgresql
   host: localhost
   encoding: unicode
-  database: blinq_test
+  database: timetracker_test
   pool: 5
   username: postgres
   password: postgres
