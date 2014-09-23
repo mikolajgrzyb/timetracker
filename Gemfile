@@ -16,7 +16,6 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'interactor'
 gem 'devise'
-gem 'html5_validators'
 gem 'friendly_id'
 
 # Use ActiveModel has_secure_password
