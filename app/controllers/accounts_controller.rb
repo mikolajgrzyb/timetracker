@@ -3,19 +3,19 @@ class AccountsController < ApplicationController
   before_action :find_account
 
   def index
-    @account
+    @accounts = current_user.accounts
   end
 
   def invite
-    InvitationMailer.invite(params[:email], current_user.account.token).deliver
-    redirect_to accounts_url
+    InvitationMailer.invite(params[:email], account.token).deliver
+    redirect_to accounts_url, notice: 'Invitation was sent.'
   end
 
   private
 
   def find_account
-    @account = current_user.account ? current_user.account : current_user.memberships.try(:first)
+    @account = Account.find(params[:id])
+    # @account = current_user.account ? current_user.account : current_user.memberships.try(:first)
   end
-
 end
 
