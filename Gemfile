@@ -49,4 +49,3 @@ group :test do
   gem 'database_cleaner', '~> 1.2'
   gem 'faker'
 end
-
