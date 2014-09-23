@@ -1,24 +1,34 @@
 class EditRegistration
-  include RegistrationValidation
+  include ActiveModel::Model
 
-  attr_accessor :user
+  attr_accessor :first_name,
+                :last_name,
+                :email,
+                :password,
+                :password_confirmation
 
-  validates :password, length: {minimum: 6}, confirmation: true, unless: password.blank?
-  validates :password_confirmation, presence: true, unless: password.blank?
+  validates :email, presence: true, format: { with: Devise.email_regexp }
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validate :uniq_email
+  validates :password, length: {minimum: 6}, confirmation: true, unless: -> { password.blank? }
+  validates :password_confirmation, presence: true, unless: -> { password.blank? }
+
+  def update(user)
+    if valid?
+      ActiveRecord::Base.transaction do
+        update_attributes(user)
+      end
+    end
+  end
 
   def persisted?
     true
   end
 
-  def update
-    if valid?
-      ActiveRecord::Base.transaction do
-        update_user
-      end
-    end
-  end
+  private
 
-  def update_user
+  def update_attributes(user)
     user.update_attributes(user_params)
     user.save!(validate: false)
   end
@@ -31,5 +41,9 @@ class EditRegistration
         avatar: avatar,
         password: password
     }.except(:password) unless password.present?
+  end
+
+  def uniq_email
+    errors.add(:email, 'must be unique') if User.exists?(email: email.downcase)
   end
 end
