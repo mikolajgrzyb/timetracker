@@ -1,49 +1,50 @@
 class EditRegistration
   include ActiveModel::Model
 
-  attr_accessor :first_name,
-                :last_name,
-                :email,
-                :password,
-                :password_confirmation
+  attr_accessor :user
 
-  validates :email, presence: true, format: { with: Devise.email_regexp }
+  delegate :first_name, :last_name, :email, :password, :password_confirmation, to: :user
+
   validates :first_name, presence: true
   validates :last_name, presence: true
+  validates :email, presence: true, format: { with: Devise.email_regexp }
   validate :uniq_email
   validates :password, length: { minimum: 6 }, confirmation: true, unless: -> { password.blank? }
   validates :password_confirmation, presence: true, unless: -> { password.blank? }
 
-  def update(user)
-    if valid?
-      ActiveRecord::Base.transaction do
-        update_attributes(user)
-      end
-    end
+  def initialize(options = {})
+    @user = options.fetch(:user)
+    @params = options.fetch(:params)
+    assign_attributes if @params
   end
 
   def persisted?
     true
   end
 
+  def update
+    if valid?
+      ActiveRecord::Base.transaction do
+        user.save!
+      end
+    end
+  end
+
   private
 
-  def update_attributes(user)
-    user.update_attributes(user_params)
-    user.save!(validate: false)
+  def assign_attributes
+    @user.assign_attributes user_params
   end
 
   def user_params
-    {
-        first_name: first_name,
-        last_name: last_name,
-        email: email,
-        avatar: avatar,
-        password: password
-    }.except(:password) unless password.present?
+    if @params[:password].present?
+      @params.slice(:first_name, :last_name, :avatar, :email, :password, :password_confirmation)
+    else
+      @params.slice(:first_name, :last_name, :avatar, :email)
+    end
   end
 
   def uniq_email
-    errors.add(:email, 'must be unique') if User.exists?(email: email.downcase)
+    errors.add(:email, 'must be unique') if User.exists?(email: email.downcase) && (email.downcase != user.email.downcase)
   end
 end

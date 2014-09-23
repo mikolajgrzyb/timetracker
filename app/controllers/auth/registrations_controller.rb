@@ -15,11 +15,11 @@ class Auth::RegistrationsController < Devise::RegistrationsController
   end
 
   def edit
-    @registration = EditRegistration.new(current_user)
+    @registration = EditRegistration.new(user: current_user)
   end
 
   def update
-    @registration = EditRegistration.new(current_user, edit_registration_params)
+    @registration = EditRegistration.new(user: current_user, params: edit_registration_params)
     @registration.update
     respond_with @registration, location: edit_user_registration_path
   end
@@ -31,6 +31,6 @@ class Auth::RegistrationsController < Devise::RegistrationsController
   end
 
   def edit_registration_params
-    params.require(:edit_registration).permit(:user_id, :company_name, :email, :first_name, :last_name, :tos_accepted, :password, :password_confirmation, :token, :avatar)
+    params.require(:edit_registration).permit(:first_name, :last_name, :email, :password, :password_confirmation, :avatar)
   end
 end
