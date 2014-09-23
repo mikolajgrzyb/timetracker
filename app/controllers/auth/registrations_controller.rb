@@ -11,17 +11,17 @@ class Auth::RegistrationsController < Devise::RegistrationsController
       sign_up(:user, @registration.user)
     end
 
-    respond_with @registration, location: accounts_url
+    respond_with @registration, location: account_url(@registration.account)
   end
 
   def edit
-    @registration = EditRegistration.new
+    @registration = EditRegistration.new(current_user)
   end
 
   def update
-    @registration = EditRegistration.new(edit_registration_params)
-    @registration.update(current_user)
-    respond_with @registration, location: accounts_url
+    @registration = EditRegistration.new(current_user, edit_registration_params)
+    @registration.update
+    respond_with @registration, location: edit_user_registration_path
   end
 
   private
