@@ -92,11 +92,7 @@ describe Devise::Custom::RegistrationsController, type: :controller do
 
       it "doesnt create new registration" do
         expect {
-<<<<<<< HEAD
-          post :create, registration: {company_name: 'lol'}
-=======
           post :create, registration: attributes_for(:invalid_registration)
->>>>>>> fc04e7f3f38da4cb87d09a4fcedcc98ba04558e1
         }.to_not change(User, :count)
       end
 
