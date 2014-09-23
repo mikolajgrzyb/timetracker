@@ -12,6 +12,10 @@ class AccountsController < ApplicationController
   def edit
   end
 
+  def show
+
+  end
+
   def create
     @account = Account.new(account_params)
 
