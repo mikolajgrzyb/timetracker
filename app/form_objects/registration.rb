@@ -10,7 +10,8 @@ class Registration
                 :tos_accepted,
                 :persisted,
                 :token,
-                :user
+                :user,
+                :account
 
   validates :email, presence: true, format: { with: Devise.email_regexp }
   validates :first_name, presence: true
@@ -46,7 +47,7 @@ class Registration
         invitation.destroy
       end
     else
-      @user.accounts.build(account_params)
+      @account = @user.accounts.build(account_params)
     end
   end
 
