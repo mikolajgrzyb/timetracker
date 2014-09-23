@@ -13,13 +13,13 @@ class Registration
                 :user,
                 :account
 
-  validates :email, presence: true, format: { with: Devise.email_regexp }
   validates :first_name, presence: true
   validates :last_name, presence: true
+  validates :email, presence: true, format: { with: Devise.email_regexp }
   validate :uniq_email
   validates :password, length: { minimum: 6 }, confirmation: true
   validates :password_confirmation, presence: true
-  validates :company_name, presence: true, unless: -> { self.token }
+  validates :company_name, presence: true, unless: -> { token }
   validates :tos_accepted, acceptance: true, presence: true
 
   def register
@@ -41,9 +41,10 @@ class Registration
   def create_account
     if token.present?
       invitation = Invitation.find_by(token: token)
+      @account = invitation.account
 
       if invitation
-        invitation.account.members << @user
+        @account.users << @user
         invitation.destroy
       end
     else
