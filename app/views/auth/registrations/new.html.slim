@@ -1,17 +1,14 @@
-h2
-  | Settings
-  = render partial: 'shared/errors', locals: {object: @registration}
-
-= form_for @registration, url: user_registration_path  do |f|
-
-  = f.hidden_field :user_id, value: params[:format] || @registration.user.id
+h2 Sign up
+= render partial: 'shared/errors', locals: { object: @registration }
+= form_for @registration, url: user_registration_path do |f|
+  = f.hidden_field :token, value: @token
   .form-group
     = f.label :first_name
     = f.text_field :first_name, class: 'form-control'
   .form-group
     = f.label :last_name
     = f.text_field :last_name, class: 'form-control'
-  - if @registration.account
+  - if !params[:token]
     .form-group
       = f.label :company_name
       = f.text_field :company_name, class: 'form-control'
@@ -24,12 +21,8 @@ h2
   .form-group
     = f.label :password_confirmation
     = f.password_field :password_confirmation, class: 'form-control'
-
-  - if @registration.user.avatar
-    = image_tag @registration.user.avatar
   .form-group
-    = f.label :avatar
-    = f.file_field :avatar
-
-
-  = f.submit 'Save', class: 'btn btn-primary'
+    = f.label :tos_accepted
+    = f.check_box :tos_accepted, class: 'form-control'
+  .form-group
+    = f.submit

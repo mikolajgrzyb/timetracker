@@ -1,4 +1,4 @@
-class Devise::Custom::RegistrationsController < Devise::RegistrationsController
+class Auth::RegistrationsController < Devise::RegistrationsController
 
   def new
     @registration = Registration.new
