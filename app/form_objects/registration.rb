@@ -9,7 +9,8 @@ class Registration
                 :company_name,
                 :tos_accepted,
                 :persisted,
-                :token
+                :token,
+                :user
 
   validates :email, presence: true, format: { with: Devise.email_regexp }
   validates :first_name, presence: true
@@ -26,8 +27,6 @@ class Registration
         create_user
         create_account
       end
-
-      @user
     end
   end
 
