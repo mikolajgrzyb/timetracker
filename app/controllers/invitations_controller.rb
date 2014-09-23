@@ -1,15 +1,13 @@
 class InvitationsController < ApplicationController
-  before_action :set_invitation, only: [:show, :edit, :update, :destroy]
+  before_action :set_invitation, only: [:update, :destroy]
 
   def index
     @invitations = Invitation.all
   end
 
   def new
-    @invitation = Invitation.new
-  end
-
-  def edit
+    @account = Account.find(params[:account_id])
+    @invitation = @account.invitations.new
   end
 
   def create
@@ -17,8 +15,8 @@ class InvitationsController < ApplicationController
     @invitation = @account.invitations.build(invitation_params)
 
     if @invitation.save
-      InvitationMailer.invite(params[:email], invitation.token).deliver
-      redirect_to invitation_url(@invitation), notice: 'Invitation was successfully created.'
+      InvitationMailer.send_invitation(@invitation).deliver
+      redirect_to account_invitations_path(@invitation), notice: 'Invitation was successfully created.'
     else
       render action: 'new'
     end
@@ -26,7 +24,7 @@ class InvitationsController < ApplicationController
 
   def update
     if @invitation.update(invitation_params)
-      redirect_to invitation_url(@invitation), notice: 'Invitation was successfully updated.'
+      redirect_to account_invitations_path(@invitation), notice: 'Invitation was successfully updated.'
     else
       render action: 'edit'
     end
@@ -34,7 +32,7 @@ class InvitationsController < ApplicationController
 
   def destroy
     @invitation.destroy
-    redirect_to invitations_path
+    redirect_to account_invitations_path
   end
 
   private

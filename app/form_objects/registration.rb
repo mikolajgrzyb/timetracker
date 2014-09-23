@@ -49,6 +49,7 @@ class Registration
       end
     else
       @account = @user.accounts.build(account_params)
+      @account.save!
     end
   end
 
@@ -71,6 +72,6 @@ class Registration
   end
 
   def uniq_email
-    errors.add(:email, 'must be unique') if User.exists?(email: email.downcase)
+    errors.add(:email, 'must be unique') if User.exists?(email: email.try(:downcase))
   end
 end
