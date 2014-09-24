@@ -45,6 +45,6 @@ class EditRegistration
   end
 
   def uniq_email
-    errors.add(:email, 'must be unique') if User.exists?(email: email.try(:downcase)) && (@params[:email] != email)
+    errors.add(:email, 'must be unique') if User.exists?(email: email.try(:downcase)) && (@params[:email].try(:downcase) != email.downcase)
   end
 end
