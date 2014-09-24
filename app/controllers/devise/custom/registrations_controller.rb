@@ -1,4 +1,4 @@
-class Auth::RegistrationsController < Devise::RegistrationsController
+class Devise::Custom::RegistrationsController < Devise::RegistrationsController
 
   def new
     @registration = Registration.new
@@ -9,9 +9,13 @@ class Auth::RegistrationsController < Devise::RegistrationsController
 
     if @registration.register
       sign_up(:user, @registration.user)
+      redirect_to account_path(@registration.account)
+    else
+      render :new
     end
 
-    respond_with @registration, location: account_url(@registration.account)
+    # render :new
+    # respond_with @registration, location: account_path(@registration.account)
   end
 
   def edit

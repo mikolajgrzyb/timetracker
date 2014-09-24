@@ -16,7 +16,7 @@ class InvitationsController < ApplicationController
 
     if @invitation.save
       InvitationMailer.send_invitation(@invitation).deliver
-      redirect_to account_invitations_path(@invitation), notice: 'Invitation was successfully created.'
+      redirect_to account_path(@account), notice: 'Invitation was successfully created.'
     else
       render action: 'new'
     end
@@ -24,15 +24,15 @@ class InvitationsController < ApplicationController
 
   def update
     if @invitation.update(invitation_params)
-      redirect_to account_invitations_path(@invitation), notice: 'Invitation was successfully updated.'
+      redirect_to account_path(@account), notice: 'Invitation was successfully updated.'
     else
-      render action: 'edit'
+      render action: :edit
     end
   end
 
   def destroy
     @invitation.destroy
-    redirect_to account_invitations_path
+    redirect_to account_invitations_path, notice: 'Invitation was deleted.'
   end
 
   private
@@ -42,6 +42,6 @@ class InvitationsController < ApplicationController
   end
 
   def invitation_params
-    params.require(:invitation).permit(:email)
+    params.require(:invitation).permit(:invitee_email).merge({ inviter: current_user })
   end
 end
