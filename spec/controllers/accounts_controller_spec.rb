@@ -25,9 +25,9 @@ RSpec.describe AccountsController, type: :controller do
         expect(response).to be_success
       end
 
-      it "assigns user account to @account" do
+      it "assigns accounts" do
         get :index
-        expect(assigns(:account)).to_not be nil
+        expect(assigns(:accounts)).to_not be nil
       end
 
     end

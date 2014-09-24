@@ -4,7 +4,7 @@ describe Registration, type: :model do
 
   describe "#register" do
 
-    let(:registration) { create_registration }
+    let(:registration) { build :registration }
 
     context "with valid params" do
 
@@ -27,8 +27,6 @@ describe Registration, type: :model do
     end
 
     context "with invalid params" do
-
-      let(:registration) { create_registration }
 
       it "is not valid without first name" do
         registration.first_name = nil
@@ -74,7 +72,7 @@ describe Registration, type: :model do
 
       it "is not valid if email is not unique" do
         registration.register
-        registration2 = create_registration
+        registration2 = build :registration
         registration2.email = registration.email
         registration2.register
 
