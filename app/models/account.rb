@@ -5,6 +5,7 @@ class Account < ActiveRecord::Base
   has_many :users, through: :members
   has_many :invitations
   has_many :projects
+  belongs_to :owner, class_name: 'User'
 
   friendly_id :company_name, use: [:slugged, :finders]
 end
