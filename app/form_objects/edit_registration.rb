@@ -13,8 +13,8 @@ class EditRegistration
   validates :password_confirmation, presence: true, unless: -> { password.blank? }
 
   def initialize(options = {})
-    @user = options.fetch(:user)
-    @params = options.fetch(:params)
+    @user = options[:user]
+    @params = options[:params]
     assign_attributes if @params
   end
 
@@ -45,6 +45,6 @@ class EditRegistration
   end
 
   def uniq_email
-    errors.add(:email, 'must be unique') if User.exists?(email: email.downcase) && (email.downcase != user.email.downcase)
+    errors.add(:email, 'must be unique') if User.exists?(email: email.try(:downcase))
   end
 end
