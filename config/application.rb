@@ -21,5 +21,6 @@ module Timetracker
     # config.i18n.default_locale = :de
 
     config.autoload_paths += Dir[Rails.root.join('form_objects', '*.{rb}').to_s]
+    config.autoload_paths += Dir[Rails.root.join('uploaders', '*.{rb}').to_s]
   end
 end
