@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
   root to: 'static_pages#index'
 
-  devise_for :users,
-             :controllers => { :registrations => "auth/registrations" }
+  devise_for :users, controllers: { :registrations => "devise/custom/registrations" }
 
-  devise_scope :user do
-    get "signup", to: "devise/registrations#new"
-  end
+  # devise_scope :user do
+  #   get "signup", to: "devise/registrations#new"
+  #   get "login", to: "devise/sessions#new"
+  #   get "logout", to: "devise/sessions#destroy"
+  # end
 
   resources :accounts, shallow: true do
     get 'settings', on: :member
