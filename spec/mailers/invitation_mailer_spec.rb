@@ -10,7 +10,7 @@ describe InvitationMailer, type: :mailer do
 
     it "sends mail" do
       expect {
-        InvitationMailer.send_invitation(invitation).deliver
+        InvitationMailer.invite(invitation).deliver
       }.to change { ActionMailer::Base.deliveries.count }.by(1)
     end
   end

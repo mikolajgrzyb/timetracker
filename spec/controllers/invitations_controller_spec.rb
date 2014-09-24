@@ -14,7 +14,7 @@ describe InvitationsController, type: :controller do
     it "send invitation email" do
       double = double({deliver: nil})
       post :create, account_id: account.id, invitation: attributes_for(:invitation)
-      expect(InvitationMailer).to receive(:send_invitation).and_return(double)
+      expect(InvitationMailer).to receive(:invite).and_return(double)
     end
 
   end

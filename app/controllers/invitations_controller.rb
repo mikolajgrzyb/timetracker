@@ -15,7 +15,7 @@ class InvitationsController < ApplicationController
     @invitation = @account.invitations.build(invitation_params)
 
     if @invitation.save
-      InvitationMailer.send_invitation(@invitation).deliver
+      InvitationMailer.invite(@invitation).deliver
       redirect_to account_path(@account), notice: 'Invitation was successfully created.'
     else
       render action: 'new'
