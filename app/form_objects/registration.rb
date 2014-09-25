@@ -8,7 +8,6 @@ class Registration
                 :password_confirmation,
                 :company_name,
                 :tos_accepted,
-                :persisted,
                 :token,
                 :user,
                 :account
