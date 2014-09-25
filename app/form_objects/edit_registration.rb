@@ -1,9 +1,12 @@
 class EditRegistration
   include ActiveModel::Model
 
-  attr_accessor :user
-
-  delegate :first_name, :last_name, :email, :password, :password_confirmation, to: :user
+  attr_accessor :first_name,
+                :last_name,
+                :email,
+                :password,
+                :password_confirmation,
+                :user
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -25,7 +28,7 @@ class EditRegistration
   def update
     if valid?
       ActiveRecord::Base.transaction do
-        user.save!
+        update_user
       end
     end
   end
@@ -33,18 +36,26 @@ class EditRegistration
   private
 
   def assign_attributes
-    @user.assign_attributes user_params
+    @first_name = @params.fetch(:first_name, @user.first_name)
+    @last_name = @params.fetch(:last_name, @user.last_name)
+    @email = @params.fetch(:email, @user.email)
+  end
+
+  def update_user
+    @user.update_attributes user_params
+    user.save!(validate: false)
   end
 
   def user_params
-    if @params[:password].present?
-      @params.slice(:first_name, :last_name, :avatar, :email, :password, :password_confirmation)
-    else
-      @params.slice(:first_name, :last_name, :avatar, :email)
-    end
+    {
+        first_name: first_name,
+        last_name: last_name,
+        email: email,
+        password: password
+    }.except(:password) unless password.present?
   end
 
   def uniq_email
-    errors.add(:email, 'must be unique') if User.exists?(email: email.try(:downcase)) && (@params[:email].try(:downcase) != email.downcase)
+    errors.add(:email, 'must be unique') if User.exists?(email: email.try(:downcase)) && (@params[:email].try(:downcase) != @user.email.downcase)
   end
 end

@@ -24,19 +24,19 @@ describe EditRegistration, type: :model do
     context "with invalid params" do
 
       it "is not valid without first name" do
-        registration.user.first_name = nil
+        registration.first_name = nil
         registration.valid?
         expect(registration.errors.messages[:first_name].size).to eq 1
       end
 
       it "is not valid without last_name" do
-        registration.user.last_name = nil
+        registration.last_name = nil
         registration.valid?
         expect(registration.errors.messages[:last_name].size).to eq 1
       end
 
       it "is not valid without email" do
-        registration.user.email = nil
+        registration.email = nil
         registration.valid?
         expect(registration.errors.messages[:email].size).to eq 2
       end
