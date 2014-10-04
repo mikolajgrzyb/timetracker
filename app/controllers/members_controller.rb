@@ -4,6 +4,8 @@ class MembersController < ApplicationController
   def index
     @active_members = Member.active
     @inactive_members = Member.inactive
+    @invitations = @account.invitations
+    @invitation = Invitation.new
   end
 
   def activate

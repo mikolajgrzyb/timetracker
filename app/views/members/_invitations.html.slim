@@ -1,0 +1,11 @@
+h3 Invites
+= render 'invitations/form'
+table
+  thead
+    tr
+      th colspan="3"
+  tbody
+    - invitations.each do |invitation|
+      tr
+        td= invitation.invitee_email
+        td= link_to 'Delete', account_invitations_path(@account, invitation), method: :delete, class: 'btn'
