@@ -2,7 +2,7 @@ ul.nav.navbar-nav.navbar-right.main-nav
   -if user_signed_in?
     li= link_to 'Timer', accounts_path
     li= link_to 'Projects', root_path
-    li= link_to 'Team', root_path
+    li= link_to 'Team', account_members_path(@account)
     li.dropdown
       button#dropdownMenu1.btn.btn-default.dropdown-toggle data-toggle="dropdown" type="button"
         | Account

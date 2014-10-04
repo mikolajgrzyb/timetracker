@@ -1,4 +1,7 @@
 h1 Listing members
+
+= render partial: 'members/invitations', locals: {invitations: @invitations} if @invitations.length > 0
+
 table
   thead
     tr
