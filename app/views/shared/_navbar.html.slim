@@ -21,11 +21,7 @@ ul.nav.navbar-nav.navbar-right.main-nav
         li role="presentation"
           = link_to 'My profile', edit_user_registration_path, role: 'menuitem', tabindex: -1
         li role="presentation"
-          = link_to 'Account 1', root_path, role: 'menuitem', tabindex: -1
-        li role="presentation"
-          = link_to 'Account 2', root_path, role: 'menuitem', tabindex: -1
-        li role="presentation"
-          = link_to 'Account 3', root_path, role: 'menuitem', tabindex: -1
+          = link_to current_user.first_account.company_name, account_path(current_user.first_account), role: 'menuitem', tabindex: -1
         li role="presentation"
           = link_to 'Sign out', destroy_user_session_path, method: :delete
   -else

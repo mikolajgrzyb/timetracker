@@ -194,7 +194,7 @@ DEPENDENCIES
   devise
   factory_girl_rails
   faker
-  friendly_id
+  friendly_id (~> 5.0.0)
   interactor
   jbuilder (~> 2.0)
   jquery-rails

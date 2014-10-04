@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   #   get "logout", to: "devise/sessions#destroy"
   # end
 
-  resources :accounts, shallow: true do
+  resources :accounts do
     get 'settings', on: :member
     get 'team', on: :member
     get 'timer', on: :member
