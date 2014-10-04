@@ -8,5 +8,5 @@
 
 User.delete_all
 
-user1 = User.create! email: 'demo@timetracker.com', password: 'password'
+user1 = User.create! email: 'demo@timetracker.com', password: 'password', first_name: 'demo', last_name: 'demo'
 user1.accounts.create! company_name: 'demo company'
