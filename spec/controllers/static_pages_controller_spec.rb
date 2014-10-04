@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe StaticPagesController, :type => :controller do
 
-  it '#show' do
-    get :show
+  it '#index' do
+    get :index
     expect(response.status).to eq 200
   end
 

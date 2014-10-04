@@ -25,7 +25,7 @@ describe Devise::Custom::RegistrationsController, type: :controller do
     context "when attributes are valid" do
 
       let!(:user) { create(:user) }
-      let!(:account) { create(:account, owner: user) }
+      let!(:account) { create(:account) }
       let!(:invitation) { create(:invitation, inviter: user, account: account) }
 
       context "when with token param" do
@@ -117,7 +117,7 @@ describe Devise::Custom::RegistrationsController, type: :controller do
 
   describe "PUT #update" do
     let!(:user) { create :user }
-    let!(:account) { create :account, owner: user }
+    let!(:account) { create :account }
 
     before do
       sign_in :user, user
