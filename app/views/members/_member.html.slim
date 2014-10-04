@@ -3,5 +3,5 @@ td= member.user.first_name
 td= member.user.last_name
 td= member.owner ? "owner" : "regular"
 td
-	button.btn.btn-primary data-id=member.user.id data-action=(action)
+	button.btn.btn-primary data-js="state-button" data-id=member.id data-action=(action)
 		= action

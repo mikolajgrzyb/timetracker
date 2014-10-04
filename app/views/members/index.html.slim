@@ -1,7 +1,7 @@
 = render partial: 'invitations/invitations', locals: {invitations: @invitations} if @invitations.length > 0
 
 h3 Active members
-table.table
+table.table.active-members
   thead
     th First Name
     th Last Name
@@ -10,14 +10,14 @@ table.table
   tbody
     - if !@active_members.empty?
       - @active_members.each do |member|
-        tr
+        tr.user
           = render partial: "members/member", locals: { member: member }
-    - else
-        tr
-          td No active users
+
+    tr.empty class=('hide' if !@active_members.empty? )
+      td No active users
 
 h3 Inactive members
-table.table
+table.table.inactive-members
   thead
     th First Name
     th Last Name
@@ -26,8 +26,14 @@ table.table
   tbody
     - if !@inactive_members.empty?
       - @inactive_members.each do |member|
-        tr
+        tr.user
           = render partial: "members/member", locals: { member: member }
-    - else
-        tr
-          td No inactive users
+
+    tr.empty class=('hide' if !@inactive_members.empty? )
+      td No inactive users
+
+=content_for :js do
+  javascript:
+    App.MemberApp.start()
+
+
