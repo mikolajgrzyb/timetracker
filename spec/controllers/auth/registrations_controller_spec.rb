@@ -130,4 +130,5 @@ describe Devise::Custom::RegistrationsController, type: :controller do
 
   end
 
+
 end

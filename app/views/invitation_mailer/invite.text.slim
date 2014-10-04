@@ -1,1 +1,4 @@
-= "I invite you to join my account. #{new_user_registration_url(token: @invitation.token)}"
+= @invitation.inviter.first_name + ' ' + @invitation.inviter.last_name
+| has invited you to join code quest at HeartBeat.
+  To confirm this invitation, please click here:
+= new_user_registration_url(token: @invitation.token)
