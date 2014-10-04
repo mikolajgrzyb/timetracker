@@ -1,5 +1,6 @@
 class InvitationsController < ApplicationController
   before_action :set_invitation, only: [:update, :destroy]
+  before_action :find_account, only: [:create]
 
   def index
     @invitations = Invitation.all
@@ -11,9 +12,7 @@ class InvitationsController < ApplicationController
   end
 
   def create
-    @account = Account.find(params[:account_id])
     @invitation = @account.invitations.build(invitation_params)
-
     if @invitation.save
       InvitationMailer.invite(@invitation).deliver
       redirect_to account_path(@account), notice: 'Invitation was successfully created.'
