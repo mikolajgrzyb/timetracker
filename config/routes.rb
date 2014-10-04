@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root to: 'static_pages#index'
 
-  devise_for :users, controllers: { :registrations => "devise/custom/registrations" }
+  devise_for :users, controllers: { :registrations => "devise/custom/registrations",  :sessions => 'devise/custom/sessions' }
 
   # devise_scope :user do
   #   get "signup", to: "devise/registrations#new"
