@@ -47,8 +47,11 @@ class Registration
         invitation.destroy
       end
     else
-      @account = @user.accounts.build(account_params)
+      @account = Account.new(account_params)
       @account.save!
+
+      member = Member.new(member_params)
+      member.save!
     end
   end
 
@@ -64,7 +67,14 @@ class Registration
 
   def account_params
     {
-        company_name: company_name,
+        company_name: company_name
+    }
+  end
+
+  def member_params
+    {
+        user: @user,
+        account: @account,
         owner: true,
         admin: true
     }
