@@ -81,6 +81,6 @@ class Registration
   end
 
   def uniq_email
-    errors.add(:email, 'must be unique') if User.where('lower(email) = ?', email.try(:downcase)).count > 1
+    errors.add(:email, 'must be unique') if User.where('lower(email) = ?', email.try(:downcase)).present?
   end
 end
