@@ -4,8 +4,8 @@ describe InvitationMailer, type: :mailer do
 
   describe "#send_invitation" do
 
-    let(:user) {create :user}
-    let(:account) {create :account, owner: user}
+    let(:user) { create :user }
+    let(:account) { create :account }
     let(:invitation) { create :invitation, inviter: user, account: account }
 
     it "sends mail" do
