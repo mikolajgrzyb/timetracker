@@ -1,8 +1,7 @@
-h2
-  | Sign up
-= render partial: 'shared/errors', locals: {object: @registration}
+h2 Sign up
+= render partial: 'shared/errors', locals: { object: @registration }
 = form_for @registration, url: user_registration_path do |f|
-  = f.hidden_field :token, value: params[:token]
+  = f.hidden_field :token, value: @token
   .form-group
     = f.label :first_name
     = f.text_field :first_name, class: 'form-control'

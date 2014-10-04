@@ -9,24 +9,23 @@ class Devise::Custom::RegistrationsController < Devise::RegistrationsController
 
     if @registration.register
       sign_up(:user, @registration.user)
+      redirect_to account_path(@registration.account)
+    else
+      render :new
     end
 
-    respond_with @registration, location: @registration.user.try(:first_account) ? account_url(@registration.user.first_account) : root_url
+    # render :new
+    # respond_with @registration, location: account_path(@registration.account)
   end
 
   def edit
-    @registration = EditRegistration.new(user_id: params[:format])
-
+    @registration = EditRegistration.new(user: current_user)
   end
 
   def update
-
-    @registration = EditRegistration.new(user_id: edit_registration_params[:user_id], params: edit_registration_params)
-
+    @registration = EditRegistration.new(user: current_user, params: edit_registration_params)
     @registration.update
-
-    respond_with @registration, location: account_url(@registration.user.first_account)
-
+    respond_with @registration, location: edit_user_registration_path
   end
 
   private
@@ -36,6 +35,6 @@ class Devise::Custom::RegistrationsController < Devise::RegistrationsController
   end
 
   def edit_registration_params
-    params.require(:edit_registration).permit(:user_id, :company_name, :email, :first_name, :last_name, :tos_accepted, :password, :password_confirmation, :token, :avatar)
+    params.require(:edit_registration).permit(:first_name, :last_name, :email, :password, :password_confirmation, :avatar)
   end
 end

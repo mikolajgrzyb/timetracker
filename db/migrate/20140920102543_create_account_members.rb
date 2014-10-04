@@ -4,7 +4,6 @@ class CreateAccountMembers < ActiveRecord::Migration
       t.integer :account_id
       t.integer :user_id
 
-
       t.timestamps
     end
 

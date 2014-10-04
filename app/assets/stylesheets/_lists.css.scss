@@ -1,0 +1,36 @@
+ol.unstyled, 
+ul.unstyled {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+ol.horizontal, 
+ul.horizontal {
+	margin-left: -20px;
+	li {
+		display: inline-block;
+		margin-left: 20px;
+	}
+}
+.tt-dropdown-menu {
+	background: #fff;
+	border: 1px solid rgb(204, 204, 204);
+	p {
+		padding: 5px 10px;
+	}
+	.tt-cursor {
+		background: #428bca;
+		color: #fff;
+	}
+}
+.message {
+	color: #999;
+	font-style: italic;
+}
+.place-attachments {
+	li {
+		display: inline-block;
+		vertical-align: top;
+		margin-right: 5px;
+	}
+}

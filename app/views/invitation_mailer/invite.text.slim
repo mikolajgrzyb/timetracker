@@ -1,4 +1,4 @@
-= @user.first_name + ' ' + @user.last_name
+= @invitation.inviter.first_name + ' ' + @invitation.inviter.last_name
 | has invited you to join code quest at HeartBeat.
   To confirm this invitation, please click here:
-= @link
+= new_user_registration_url(token: @invitation.token)

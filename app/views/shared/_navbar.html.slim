@@ -3,7 +3,7 @@ ul.nav.navbar-nav.navbar-right.main-nav
     li= link_to 'Timer', accounts_path
     li= link_to 'Projects', root_path
     li= link_to 'Team', root_path
-    .dropdown
+    li.dropdown
       button#dropdownMenu1.btn.btn-default.dropdown-toggle data-toggle="dropdown" type="button"
         | Account
         span.caret
@@ -11,7 +11,7 @@ ul.nav.navbar-nav.navbar-right.main-nav
         li role="presentation"
           = link_to 'Settings', root_path, role: 'menuitem', tabindex: -1
           = link_to 'Logs Stream', root_path, role: 'menuitem', tabindex: -1
-    .dropdown
+    li.dropdown
       button#dropdownMenu1.btn.btn-default.dropdown-toggle data-toggle="dropdown" type="button"
         - if current_user.avatar
           = image_tag current_user.avatar.thumb
@@ -19,7 +19,7 @@ ul.nav.navbar-nav.navbar-right.main-nav
         span.caret
       ul.dropdown-menu aria-labelledby="dropdownMenu2" role="menu"
         li role="presentation"
-          = link_to 'My profile', edit_user_registration_path(current_user), role: 'menuitem', tabindex: -1
+          = link_to 'My profile', edit_user_registration_path, role: 'menuitem', tabindex: -1
         li role="presentation"
           = link_to current_user.first_account.company_name, account_path(current_user.first_account), role: 'menuitem', tabindex: -1
         li role="presentation"

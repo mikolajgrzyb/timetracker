@@ -1,16 +1,17 @@
 require "rails_helper"
 
-RSpec.describe InvitationMailer, :type => :mailer do
-  describe '#invite' do
-    let(:user) {create :user}
-    let(:account) {create :account, owner: user}
-    it 'assigns correct link to @link' do
-      mail = InvitationMailer.invite(user.email, account.token)
-      expect(mail.body.encoded).to match account.token
-    end
+describe InvitationMailer, type: :mailer do
 
-    it 'change ' do
-      expect { InvitationMailer.invite(user.email, account.token).deliver }.to change { ActionMailer::Base.deliveries.count }.by(1)
+  describe "#send_invitation" do
+
+    let(:user) { create :user }
+    let(:account) { create :account }
+    let(:invitation) { create :invitation, inviter: user, account: account }
+
+    it "sends mail" do
+      expect {
+        InvitationMailer.invite(invitation).deliver
+      }.to change { ActionMailer::Base.deliveries.count }.by(1)
     end
   end
 end
