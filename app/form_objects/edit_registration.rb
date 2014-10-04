@@ -24,9 +24,7 @@ class EditRegistration
 
   def update
     if valid?
-      ActiveRecord::Base.transaction do
-        user.save!
-      end
+      user.save!
     end
   end
 
