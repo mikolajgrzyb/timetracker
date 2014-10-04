@@ -17,6 +17,7 @@ gem 'mini_magick'
 gem 'interactor'
 gem 'devise'
 gem 'friendly_id', '~> 5.0.0'
+gem 'byebug'
 
 group :production, :staging do
   gem 'rails_12factor'

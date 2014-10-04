@@ -17,5 +17,6 @@ Rails.application.routes.draw do
     resources :projects
     resources :timers, only: :index
     resources :teams, only: :index
+    resources :members
   end
 end
