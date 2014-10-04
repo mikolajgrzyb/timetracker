@@ -20,6 +20,7 @@ ul.nav.navbar-nav.navbar-right.main-nav
       ul.dropdown-menu aria-labelledby="dropdownMenu2" role="menu"
         li role="presentation"
           = link_to 'My profile', edit_user_registration_path, role: 'menuitem', tabindex: -1
+
         li role="presentation"
           = link_to current_user.first_account.company_name, account_path(current_user.first_account), role: 'menuitem', tabindex: -1
         li role="presentation"
