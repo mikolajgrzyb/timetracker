@@ -2,11 +2,11 @@ class AccountsController < ApplicationController
   before_action :set_account, only: [:show, :edit, :update, :destroy]
 
   def index
-    @accounts = Account.all
+    @accounts = current_user.accounts
   end
 
   def new
-    @account = Account.new
+    @account = current_user.accounts.new
   end
 
   def edit
@@ -21,7 +21,7 @@ class AccountsController < ApplicationController
   end
 
   def create
-    @account = Account.new(account_params)
+    @account = current_user.accounts.build(account_params)
 
     if @account.save
       redirect_to account_url(@account), notice: 'Account was successfully created.'
