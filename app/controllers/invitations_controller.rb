@@ -1,15 +1,5 @@
 class InvitationsController < ApplicationController
-  before_action :set_invitation, only: [:update, :destroy]
-  before_action :find_account, only: [:create]
-
-  def index
-    @invitations = Invitation.all
-  end
-
-  def new
-    @account = Account.find(params[:account_id])
-    @invitation = @account.invitations.new
-  end
+  before_action :find_account, only: [:create, :destroy]
 
   def create
     @invitation = @account.invitations.build(invitation_params)
@@ -21,24 +11,13 @@ class InvitationsController < ApplicationController
     end
   end
 
-  def update
-    if @invitation.update(invitation_params)
-      redirect_to account_path(@account), notice: 'Invitation was successfully updated.'
-    else
-      render action: :edit
-    end
-  end
-
   def destroy
+    @invitation = @account.invitations.find(params[:id])
     @invitation.destroy
     redirect_to account_invitations_path, notice: 'Invitation was deleted.'
   end
 
   private
-
-  def set_invitation
-    @invitation = Invitation.find(params[:id])
-  end
 
   def invitation_params
     params.require(:invitation).permit(:invitee_email).merge({ inviter: current_user })

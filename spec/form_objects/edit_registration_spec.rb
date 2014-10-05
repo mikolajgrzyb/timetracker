@@ -7,6 +7,10 @@ describe EditRegistration, type: :model do
     let(:user) { create :user }
     let(:registration) { EditRegistration.new user: user, params: edit_registration_params }
 
+    it "is persisted" do
+      expect(registration.persisted?).to eq true
+    end
+
     context "with valid params" do
 
       it "is valid" do
