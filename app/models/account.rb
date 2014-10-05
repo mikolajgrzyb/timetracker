@@ -7,4 +7,6 @@ class Account < ActiveRecord::Base
   has_many :projects
 
   friendly_id :company_name, use: [:slugged, :finders]
+
+  validates :company_name, presence: true
 end

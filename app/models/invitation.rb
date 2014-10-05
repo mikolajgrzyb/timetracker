@@ -4,6 +4,8 @@ class Invitation < ActiveRecord::Base
 
   before_create :set_token
 
+  validates :invitee_email, presence: true, format: { with: Devise.email_regexp }
+
   private
 
   def set_token

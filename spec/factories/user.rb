@@ -9,5 +9,7 @@ FactoryGirl.define do
 
     password 'password'
     password_confirmation 'password'
+
+    accounts {[FactoryGirl.create(:account)]}
   end
 end
