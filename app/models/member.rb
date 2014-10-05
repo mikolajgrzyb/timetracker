@@ -9,6 +9,9 @@ class Member < ActiveRecord::Base
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
 
+  def can_change_state(current_user)
+    !((user == current_user) && (owner? || admin?)) || regular?
+  end
 
 
   def current_and_regular?(current_user)

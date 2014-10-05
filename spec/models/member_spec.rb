@@ -1,21 +1,17 @@
 require 'rails_helper'
 
-RSpec.describe MembersHelper, type: :helper do
-  include Devise::TestHelpers
+describe Member, type: :model do
+
 
   describe '#can_change_state' do
     let(:user) { create :user }
     let(:account) { create :account }
 
-    before do
-      sign_in user
-    end
-
     context 'member is current_user and is admin' do
 
       let!(:member) { create :member, user: user, role: 'admin' }
       it 'return false' do
-        expect(helper.can_change_state(member)).to be false
+        expect(member.can_change_state(user)).to be false
       end
     end
 
@@ -23,7 +19,7 @@ RSpec.describe MembersHelper, type: :helper do
 
       let!(:member) { create :member, user: user, role: 'owner' }
       it 'return false' do
-        expect(helper.can_change_state(member)).to be false
+        expect(member.can_change_state(user)).to be false
       end
     end
 
@@ -32,9 +28,8 @@ RSpec.describe MembersHelper, type: :helper do
       let!(:member) { create :member, user: user, role: 'owner' }
       let!(:member2) { create :member, user: user2, role: 'regular' }
       it 'return false' do
-        expect(helper.can_change_state(member2)).to be true
+        expect(member2.can_change_state(user)).to be true
       end
     end
   end
-
 end

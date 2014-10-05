@@ -5,6 +5,6 @@ tr.user
   td
     = member.role
   td
-    - if can_change_state(member)
+    - if member.can_change_state(current_user)
       button.btn.btn-primary data-js="state-button" data-id=member.id data-action=(action)
         = action
