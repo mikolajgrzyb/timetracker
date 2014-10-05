@@ -11,6 +11,7 @@ class MembersController < ApplicationController
   end
 
   def update
+
     @member = Member.find(params[:id])
     if @member.update_attributes active: params[:active]
       head :no_content

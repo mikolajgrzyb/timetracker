@@ -75,8 +75,8 @@ class Registration
     {
         user: @user,
         account: @account,
-        owner: true,
-        admin: true
+        role: 'owner'
+
     }
   end
 
