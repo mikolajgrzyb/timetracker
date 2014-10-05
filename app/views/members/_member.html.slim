@@ -1,7 +1,9 @@
 - action = member.active ? 'deactivate' : 'activate'
 td= member.user.first_name
 td= member.user.last_name
-td= member.role
 td
-  button.btn.btn-primary data-js="state-button" data-id=member.id data-action=(action)
-    = action
+  = member.role
+td
+  - if can_change_state(member)
+    button.btn.btn-primary data-js="state-button" data-id=member.id data-action=(action)
+      = action

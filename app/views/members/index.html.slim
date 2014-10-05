@@ -1,9 +1,5 @@
 = render partial: 'invitations/invitations', locals: {invitations: @invitations} if @invitations
-
-h3 Active members
 = render partial: 'members/members_table', locals: {members: @active_members, type: get_instance_variable_name(instance_variables,@active_members)}
-
-h3 Inactive members
 = render partial: 'members/members_table', locals: {members: @inactive_members, type: get_instance_variable_name(instance_variables,@inactive_members)}
 
 =content_for :js do
