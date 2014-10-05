@@ -7,7 +7,7 @@ class MembersController < ApplicationController
   def index
     @active_members = @account.members.active
     @inactive_members = @account.members.inactive
-    @invitations = @account.invitations if @account.invitations.length > 0
+    @invitations = @account.invitations
     @invitation = Invitation.new
   end
 
@@ -26,7 +26,7 @@ class MembersController < ApplicationController
   end
 
   def can_update
-    if @member.owner? || (@member.admin? && member_params.has_key?(:active)) || (current_user == @member.user && @member.regular?)
+    if @member.owner? || @member.admin_with_active_param?(member_params) || @member.current_and_regular?(current_user)
       return head(401)
     end
   end

@@ -8,6 +8,5 @@ table.table class=(type)
   tbody
     - if !members.empty?
       - members.each do |member|
-        tr.user
-          = render partial: "members/member", locals: { member: member }
+        = render partial: "members/member", locals: { member: member }
     = render partial: 'members/empty_member_row', locals: {type: type, members: members}
