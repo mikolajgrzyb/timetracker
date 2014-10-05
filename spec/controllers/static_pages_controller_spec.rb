@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe StaticPagesController, type: :controller do
+  render_views
 
   describe "GET#index" do
 

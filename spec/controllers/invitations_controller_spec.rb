@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe InvitationsController, type: :controller do
+  render_views
 
   let!(:user) { create :user }
   let!(:account) {create :account }

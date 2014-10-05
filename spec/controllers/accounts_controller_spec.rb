@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe AccountsController, type: :controller do
+  render_views
 
   context "when user is not logged in" do
 
@@ -48,7 +49,6 @@ describe AccountsController, type: :controller do
         expect {
           post :create, account: attributes_for(:account)
         }.to change(Account, :count).by 1
-
       end
 
       it "assigns account" do
