@@ -1,36 +1,10 @@
-= render partial: 'invitations/invitations', locals: {invitations: @invitations} if @invitations.length > 0
+= render partial: 'invitations/invitations', locals: {invitations: @invitations} if @invitations
 
 h3 Active members
-table.table.active-members
-  thead
-    th First Name
-    th Last Name
-    th Role
-    th Active
-  tbody
-    - if !@active_members.empty?
-      - @active_members.each do |member|
-        tr.user
-          = render partial: "members/member", locals: { member: member }
-
-    tr.empty class=('hide' if !@active_members.empty? )
-      td No active users
+= render partial: 'members/members_table', locals: {members: @active_members, type: get_instance_variable_name(instance_variables,@active_members)}
 
 h3 Inactive members
-table.table.inactive-members
-  thead
-    th First Name
-    th Last Name
-    th Role
-    th Active
-  tbody
-    - if !@inactive_members.empty?
-      - @inactive_members.each do |member|
-        tr.user
-          = render partial: "members/member", locals: { member: member }
-
-    tr.empty class=('hide' if !@inactive_members.empty? )
-      td No inactive users
+= render partial: 'members/members_table', locals: {members: @inactive_members, type: get_instance_variable_name(instance_variables,@inactive_members)}
 
 =content_for :js do
   javascript:

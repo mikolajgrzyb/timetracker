@@ -1,0 +1,12 @@
+table.table class=(type)
+  thead
+    th First Name
+    th Last Name
+    th Role
+    th Active
+  tbody
+    - if !members.empty?
+      - members.each do |member|
+        tr.user
+          = render partial: "members/member", locals: { member: member }
+    = render partial: 'members/empty_member_row', locals: {type: type, members: members}

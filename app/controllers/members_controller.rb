@@ -6,7 +6,7 @@ class MembersController < ApplicationController
   def index
     @active_members = @account.members.active
     @inactive_members = @account.members.inactive
-    @invitations = @account.invitations
+    @invitations = @account.invitations if @account.invitations.length > 0
     @invitation = Invitation.new
   end
 
