@@ -23,7 +23,8 @@ App.MemberApp =
       url: window.location.href + '/' + id
       method: 'PUT'
       data:
-        active: state
+        member:
+          active: state
       success: $.proxy @_onUpdateSuccess, @, $currentTarget, state
 
 
