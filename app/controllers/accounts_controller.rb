@@ -1,5 +1,13 @@
 class AccountsController < ApplicationController
-  before_action :set_account, only: [:edit, :update]
+  before_action :set_account, only: [:index, :edit, :update]
+
+  def show
+
+  end
+
+  def index
+    @accounts = current_user.accounts
+  end
 
   def edit
 
@@ -17,7 +25,7 @@ class AccountsController < ApplicationController
   private
 
   def set_account
-    @account = Account.find(params[:id])
+    @account = params[:id] ?  Account.find(params[:id]) : current_user.accounts.first
   end
 
   def account_params
