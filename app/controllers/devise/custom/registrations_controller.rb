@@ -9,7 +9,7 @@ class Devise::Custom::RegistrationsController < Devise::RegistrationsController
 
     if @registration.register
       sign_up(:user, @registration.user)
-      redirect_to account_path(@registration.account)
+      redirect_to account_members_path(@registration.account)
     else
       render :new
     end
