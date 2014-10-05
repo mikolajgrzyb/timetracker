@@ -11,7 +11,7 @@ class StaticPagesController < ApplicationController
   private
 
   def redirect_to_account
-    redirect_to account_path(current_user.first_account) if current_user
+    redirect_to account_members_path(current_user.first_account) if current_user
   end
 
 end
