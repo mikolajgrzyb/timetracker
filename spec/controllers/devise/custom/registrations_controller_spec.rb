@@ -104,13 +104,14 @@ describe Devise::Custom::RegistrationsController, type: :controller do
   describe "GET #edit" do
     let!(:user) { create :user }
     let!(:account) { create :account }
+    let!(:member) {create :member, account: account, user: user, role: 'owner'}
 
     before do
       sign_in :user, user
     end
 
     it "renders edit template" do
-      get :edit
+      get :edit, id: account
       expect(response).to render_template :edit
     end
 

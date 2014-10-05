@@ -7,7 +7,7 @@ class InvitationsController < ApplicationController
       InvitationMailer.invite(@invitation).deliver
       redirect_to account_members_path(@account), notice: 'Invitation was successfully created.'
     else
-      render action: 'new'
+      redirect_to account_members_path(@account), alert: 'There was an error'
     end
   end
 
