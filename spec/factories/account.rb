@@ -3,8 +3,10 @@ require 'faker'
 FactoryGirl.define do
 
   factory :account do
-    sequence :company_name do
-      Faker::Company.name
+    company_name { Faker::Company.name }
+
+    factory :invalid_account do
+      company_name ''
     end
   end
 
