@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+
 gem 'rails', '4.1.5'
 gem 'sass-rails', '4.0.3'
 gem 'uglifier', '2.5.3'
@@ -17,6 +18,7 @@ gem 'mini_magick', '3.8.1'
 gem 'interactor', '3.0.1'
 gem 'devise', '3.4.0'
 gem 'friendly_id', '5.0.4'
+gem 'byebug', '3.5.1'
 
 group :production, :staging do
   gem 'rails_12factor', '0.0.2'

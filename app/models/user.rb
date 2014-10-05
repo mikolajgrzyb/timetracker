@@ -13,4 +13,5 @@ class User < ActiveRecord::Base
     accounts.first
   end
 
+
 end

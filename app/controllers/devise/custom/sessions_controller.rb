@@ -15,7 +15,7 @@ class Devise::Custom::SessionsController < Devise::SessionsController
 
   def after_sign_in_path_for(resource)
     if resource.first_account
-      account_path(resource.first_account)
+      account_members_path(resource.first_account)
     else
       root_path
     end

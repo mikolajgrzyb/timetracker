@@ -27,7 +27,7 @@ describe InvitationsController, type: :controller do
 
       it "renders template :new" do
         post :create, account_id: account.id, invitation: attributes_for(:invalid_invitation)
-        expect(response).to render_template :new
+        expect(response).to redirect_to account_members_path(Account.last)
       end
 
     end

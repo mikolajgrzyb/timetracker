@@ -2,5 +2,5 @@
   = render partial: 'shared/errors', locals: {object: @account }
   .form-group
     = f.label :company_name
-    = f.text_area :company_name, class: 'form-control'
+    = f.text_field :company_name, class: 'form-control'
   = f.submit

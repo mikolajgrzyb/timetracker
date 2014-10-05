@@ -19,6 +19,7 @@ class Devise::Custom::RegistrationsController < Devise::RegistrationsController
   end
 
   def edit
+    @account = current_user.members.where(role: Member.roles['owner']).first.account
     @registration = EditRegistration.new(user: current_user)
   end
 
