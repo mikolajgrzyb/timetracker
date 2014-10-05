@@ -107,6 +107,23 @@ describe AccountsController, type: :controller do
 
     end
 
+    describe "DELETE#destroy" do
+      let!(:account) { create :account }
+
+      it "deletes account" do
+        expect {
+          delete :destroy, id: account.id
+        }.to change(Account, :count).by -1
+      end
+
+      it "redirects to accounts_path" do
+        delete :destroy, id: account.id
+        expect(response).to redirect_to accounts_path
+      end
+
+
+    end
+
   end
 
 end
